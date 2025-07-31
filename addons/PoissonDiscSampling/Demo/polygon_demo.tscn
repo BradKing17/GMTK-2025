@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c74o3ucws2ac4"]
 
-[ext_resource type="Script" path="res://addons/PoissonDiscSampling/Demo/polygon_demo.gd" id="1_3y3ej"]
+[ext_resource type="Script" uid="uid://bhalc734hwfs7" path="res://addons/PoissonDiscSampling/Demo/polygon_demo.gd" id="1_3y3ej"]
 
 [node name="SubViewportContainer" type="SubViewportContainer"]
 offset_right = 40.0

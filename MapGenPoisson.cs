@@ -4,32 +4,13 @@ using System.Collections.Generic;
 
 public partial class MapGenPoisson : Node2D
 {
-
-
-    // public class Point
-    // {
-    //     public Point() { }
-
-    //     private Vector2 position;
-    //     private int numOfConnections;
-
-    //     public Vector2 GetPosition() { return position; }
-    //     public void SetPosition(Vector2 newPos) { position = newPos; }
-    //     public int GetNumConnections() { return numOfConnections; }
-    // }
-
-
     [Export]
     public Polygon2D mapShape;
-
-
 
     [Export]
     private float poisson_radius = 20;
 
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
-
-    [Export] Vector2 pointScale = new (0.35f,0.35f);
 
     public override void _Ready()
     {
@@ -50,17 +31,32 @@ public partial class MapGenPoisson : Node2D
         {
 
             Points newPoint = PackedPoint.Instantiate<Points>();
+
+            AddTimer(newPoint);
+
             newPoint.SetPosition(vector);
             pointsFilled.Add(newPoint);
 
             newPoint.Position = newPoint.GetPosition();
 
-            newPoint.Scale = pointScale;
             AddChild(newPoint);
         }
 
         return pointsFilled;
     }
+
+    private void AddTimer(Points newPoint)
+    {
+        Label timerLabel = new()
+        {
+            Text = "0",
+            Position = new Vector2(0, -40)
+        };
+        newPoint.AddChild(timerLabel);
+
+        newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
+    }
+
     void GenerateStreets(List<Points> pointsPassed)
     {
         GD.Print("Generating Streets with: " + pointsPassed.Count + " Points");

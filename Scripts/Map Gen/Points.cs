@@ -87,7 +87,7 @@ public partial class Points : Node2D
     public void DecreasePost(int amount)
     {
         postWaitingForDelivery -= amount;
-        
+
         if (postWaitingForDelivery < 30)
         {
             maxPostReached = false;

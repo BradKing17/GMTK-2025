@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://croiudnto0de8"]
+[gd_scene load_steps=3 format=3 uid="uid://croiudnto0de8"]
 
 [ext_resource type="Script" uid="uid://dkbjl1gwbce6" path="res://MapGenerator.cs" id="1_uctsy"]
+[ext_resource type="Script" uid="uid://cdxefxf6brdsg" path="res://PointManager.cs" id="2_00hob"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uctsy")
@@ -11,3 +12,6 @@ minPointGenDistance = 60.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
+
+[node name="PointManager" type="Node" parent="."]
+script = ExtResource("2_00hob")

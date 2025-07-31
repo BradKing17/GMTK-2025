@@ -23,10 +23,12 @@ public partial class MapGenerator : Node
     [Export]
     private float maxConnectionDistance = 60;
 
-
+    private PointManager pointManager;
 
     public override void _Ready()
     {
+        pointManager = new PointManager();
+        AddChild(pointManager);
         GenerateMap();
     }
 
@@ -66,6 +68,7 @@ public partial class MapGenerator : Node
 
             newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
             pointsFilled.Add(newPoint);
+            pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
 
             GD.Print(newPoint.GetPosition());
             this.AddChild(pointInstance);

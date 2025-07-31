@@ -1,23 +1,9 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 
 public partial class MapGenerator : Node
 {
-
-    // class Point
-    // {
-    //     public Point() { }
-
-    //     private Vector2 position;
-    //     private int numOfConnections;
-
-    //     public Vector2 GetPosition() { return position; }
-    //     public void SetPosition(Vector2 newPos) { position = newPos; }
-    //     public int GetNumConnections() { return numOfConnections; }
-    // }
-
 
     [Export]
     private int mapSizeX = 0;
@@ -31,22 +17,15 @@ public partial class MapGenerator : Node
     private int maxConnections = 1;
 
     [Export]
-    PackedScene pointMarker = ResourceLoader.Load<PackedScene>("res://Marker.tscn");
-
-    [Export]
     private float minPointGenDistance = 50;
 
     [Export]
     private float maxConnectionDistance = 60;
-    private PackedScene PackedPoint;
+    private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
-
+    [Export] Vector2 pointScale = new (0.35f,0.35f);
     public override void _Ready()
     {
-        PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
-        GD.Print(PackedPoint);
-        // Points copy = seed.Instantiate<Points>();
-
         GenerateMap();
     }
 
@@ -74,12 +53,21 @@ public partial class MapGenerator : Node
                 }
             }
 
-            newPoint.SetPosition(newPos);
-            pointsFilled.Add(newPoint);
+            newPoint.SetPosition(newPos);            
             newPoint.Position = newPoint.GetPosition();
 
+            Label timerLabel = new()
+            {
+                Text = "0",
+                Position = new Vector2(0, -20)
+            };
+            newPoint.AddChild(timerLabel);
+
+            newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
+            pointsFilled.Add(newPoint);
+
             GD.Print(newPoint.GetPosition());
-            newPoint.Scale = new(.35f,.35f);
+            newPoint.Scale = pointScale;
             this.AddChild(newPoint);
 
         }
@@ -89,10 +77,10 @@ public partial class MapGenerator : Node
 
     void GenerateStreets(List<Points> pointsPassed)
     {
-        GD.Print(pointsPassed.Count);
+        GD.Print("Generating Streets");
         foreach (var point in pointsPassed)
         {
-            GD.Print("Generating Streets");
+           
 
            //var newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
 
@@ -108,12 +96,6 @@ public partial class MapGenerator : Node
                     AddChild(newLine);
                 }
             }
-/*            while (newConnection == point || point.GetPosition().DistanceTo(newConnection.GetPosition()) > 60)
-            {
-                newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
-            }*/
-
-
         }
     }
 }

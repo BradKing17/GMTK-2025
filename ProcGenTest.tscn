@@ -4,9 +4,9 @@
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uctsy")
-mapSizeX = 800
+mapSizeX = 500
 mapSizeY = 500
-numOfPoints = 100
+numOfPoints = 200
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)

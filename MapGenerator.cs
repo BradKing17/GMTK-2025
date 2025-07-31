@@ -56,13 +56,21 @@ public partial class MapGenerator : Node
         {
             Point newPoint = new Point();
             
-            newPoint.SetPosition(new Vector2(GD.RandRange(0, mapSizeX),(GD.RandRange(0, mapSizeY))));
+            Vector2 newPos = new Vector2(GD.RandRange(0, mapSizeX), (GD.RandRange(0, mapSizeY)));
+            foreach(Point point in pointsFilled)
+            {
+                if(newPos.DistanceTo(point.GetPosition()) < 50)
+                {
+                    newPos = new Vector2(GD.RandRange(0, mapSizeX), (GD.RandRange(0, mapSizeY)));
+                }
+            }
+            newPoint.SetPosition(newPos);
             
             pointsFilled.Add(newPoint);
 
             Node2D pointInstance = (Node2D)pointMarker.Instantiate();
             pointInstance.Position = newPoint.GetPosition();
-         //   GD.Print(pointInstance.Position);
+            GD.Print(newPoint.GetPosition());
             this.AddChild(pointInstance);
 
         }
@@ -77,19 +85,26 @@ public partial class MapGenerator : Node
         {
             GD.Print("Generating Streets");
 
-            var newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
+           //var newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
 
-            while (newConnection == point || point.GetPosition().DistanceTo(newConnection.GetPosition()) > 200)
+           foreach(Point newConnection in pointsPassed)
+            {
+                if(point.GetPosition().DistanceTo(newConnection.GetPosition()) < 60 && point != newConnection)
+                {
+                    Line2D newLine = new Line2D();
+                    newLine.AddPoint(point.GetPosition());
+                    newLine.AddPoint(newConnection.GetPosition());
+                    newLine.Width = 2;
+                    newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
+                    AddChild(newLine);
+                }
+            }
+/*            while (newConnection == point || point.GetPosition().DistanceTo(newConnection.GetPosition()) > 60)
             {
                 newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
-            }
+            }*/
 
-            Line2D newLine = new Line2D();
-            newLine.AddPoint(point.GetPosition());
-            newLine.AddPoint(newConnection.GetPosition());
-            newLine.Width = 2;
-            newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
-            AddChild(newLine);
+
         }
     }
 }

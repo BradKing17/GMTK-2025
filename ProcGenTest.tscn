@@ -7,6 +7,7 @@ script = ExtResource("1_uctsy")
 mapSizeX = 500
 mapSizeY = 500
 numOfPoints = 200
+minPointGenDistance = 60.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)

@@ -86,10 +86,10 @@ public partial class MapGenerator : Node
 
     void GenerateStreets(List<Point> pointsPassed)
     {
-        GD.Print(pointsPassed.Count);
+        GD.Print("Generating Streets");
         foreach (var point in pointsPassed)
         {
-            GD.Print("Generating Streets");
+           
 
            //var newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
 

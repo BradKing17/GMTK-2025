@@ -11,15 +11,18 @@ public class Point
     public bool maxPostReached = false;
 
     private Timer postTimer;
+    private Label timerLabel;
 
-    public void InitializeTimer(Node parent)
+    public void InitializeTimer(Node parent, Label label)
     {
+        timerLabel = label;
         postTimer = new Timer();
-        postTimer.WaitTime = 10.0f;
+        postTimer.WaitTime = 1.0f;
         postTimer.OneShot = false;
         postTimer.Timeout += OnPostTimerTimeout;
         parent.AddChild(postTimer);
         postTimer.Start();
+        UpdateLabel();
     }
 
     private void OnPostTimerTimeout()
@@ -35,6 +38,19 @@ public class Point
         else
         {
             maxPostReached = true;
+        }
+        UpdateLabel();
+
+    }
+    private void UpdateLabel()
+    {
+        if (timerLabel != null)
+        {
+            timerLabel.Text = $"{postWaitingForDelivery}";
+            if (postWaitingForDelivery == 30)
+                timerLabel.AddThemeColorOverride("font_color", new Color(1, 0, 0)); // Red
+            else
+                timerLabel.AddThemeColorOverride("font_color", new Color(1, 1, 1)); // White or default
         }
     }
 
@@ -55,3 +71,4 @@ public class Point
     public void SetPosition(Vector2 newPos) { position = newPos; }
     public int GetNumConnections() { return numOfConnections; }
 }
+

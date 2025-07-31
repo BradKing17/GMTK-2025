@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class MapGenerator : Node
@@ -56,11 +55,18 @@ public partial class MapGenerator : Node
                 }
             }
             newPoint.SetPosition(newPos);
-            newPoint.InitializeTimer(this); // Start the timer for this point
-            pointsFilled.Add(newPoint);
 
             Node2D pointInstance = (Node2D)pointMarker.Instantiate();
             pointInstance.Position = newPoint.GetPosition();
+
+            Label timerLabel = new Label();
+            timerLabel.Text = "0";
+            timerLabel.Position = new Vector2(0, -20); 
+            pointInstance.AddChild(timerLabel);
+
+            newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
+            pointsFilled.Add(newPoint);
+
             GD.Print(newPoint.GetPosition());
             this.AddChild(pointInstance);
         }

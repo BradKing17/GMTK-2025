@@ -2,16 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dkbjl1gwbce6" path="res://MapGenerator.cs" id="1_uctsy"]
 [ext_resource type="Script" uid="uid://cdxefxf6brdsg" path="res://PointManager.cs" id="2_00hob"]
+[ext_resource type="Script" uid="uid://feixikc5qxmk" path="res://MapGenPoisson.cs" id="1_uctsy"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("mapShape")]
 script = ExtResource("1_uctsy")
-mapSizeX = 500
-mapSizeY = 500
-numOfPoints = 200
-minPointGenDistance = 60.0
+mapShape = NodePath("Polygon2D")
+poisson_radius = 30.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
 [node name="PointManager" type="Node" parent="."]
 script = ExtResource("2_00hob")
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 406, 236, 500, 240, 570, 227, 634, 224, 768, 223, 823, 279, 862, 383, 823, 446, 697, 461, 597, 464, 502, 465, 421, 473, 348, 554, 241, 586, 171, 511, 147, 412, 235, 346)

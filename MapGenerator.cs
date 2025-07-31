@@ -32,6 +32,12 @@ public partial class MapGenerator : Node
     [Export]
     PackedScene pointMarker = ResourceLoader.Load<PackedScene>("res://Marker.tscn");
 
+    [Export]
+    private float minPointGenDistance = 50;
+
+    [Export]
+    private float maxConnectionDistance = 60;
+
 
 
     public override void _Ready()
@@ -59,7 +65,7 @@ public partial class MapGenerator : Node
             Vector2 newPos = new Vector2(GD.RandRange(0, mapSizeX), (GD.RandRange(0, mapSizeY)));
             foreach(Point point in pointsFilled)
             {
-                if(newPos.DistanceTo(point.GetPosition()) < 50)
+                if(newPos.DistanceTo(point.GetPosition()) < minPointGenDistance)
                 {
                     newPos = new Vector2(GD.RandRange(0, mapSizeX), (GD.RandRange(0, mapSizeY)));
                 }
@@ -89,7 +95,7 @@ public partial class MapGenerator : Node
 
            foreach(Point newConnection in pointsPassed)
             {
-                if(point.GetPosition().DistanceTo(newConnection.GetPosition()) < 60 && point != newConnection)
+                if(point.GetPosition().DistanceTo(newConnection.GetPosition()) < maxConnectionDistance && point != newConnection)
                 {
                     Line2D newLine = new Line2D();
                     newLine.AddPoint(point.GetPosition());

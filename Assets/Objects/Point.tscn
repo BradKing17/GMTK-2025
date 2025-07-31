@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4lhyk1gt4iqp"]
+
+[ext_resource type="Script" uid="uid://div5fdcga8262" path="res://Scripts/Map Gen/Points.cs" id="1_nfgws"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n10gd"]
+radius = 43.6578
+
+[node name="Point" type="Node2D" node_paths=PackedStringArray("area", "collider")]
+script = ExtResource("1_nfgws")
+area = NodePath("Area2D")
+collider = NodePath("Area2D/CollisionShape2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_n10gd")
+debug_color = Color(0.968627, 0, 0.458824, 0.345098)

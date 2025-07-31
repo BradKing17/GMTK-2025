@@ -4,25 +4,8 @@ using System.Collections.Generic;
 
 public partial class MapGenPoisson : Node2D
 {
-
-
-    public class Point
-    {
-        public Point() { }
-
-        private Vector2 position;
-        private int numOfConnections;
-
-        public Vector2 GetPosition() { return position; }
-        public void SetPosition(Vector2 newPos) { position = newPos; }
-        public int GetNumConnections() { return numOfConnections; }
-    }
-
-
     [Export]
     public Polygon2D mapShape;
-
-
 
     [Export]
     private float poisson_radius = 20;
@@ -30,8 +13,13 @@ public partial class MapGenPoisson : Node2D
     [Export]
     PackedScene pointMarker = ResourceLoader.Load<PackedScene>("res://Marker.tscn");
 
+    private PointManager pointManager;
+
     public override void _Ready()
     {
+
+        pointManager = new PointManager();
+        AddChild(pointManager);
         List<Point> points = new List<Point>();
         points = GeneratePoints();
         GenerateStreets(points);
@@ -50,12 +38,21 @@ public partial class MapGenPoisson : Node2D
 
             Point newPoint = new Point();
             newPoint.SetPosition(vector);
+
+
             pointsFilled.Add(newPoint);
+            pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
 
 
             Node2D pointInstance = (Node2D)pointMarker.Instantiate();
             pointInstance.Position = newPoint.GetPosition();
             AddChild(pointInstance);
+
+            Label timerLabel = new Label();
+            timerLabel.Text = "0";
+            timerLabel.Position = new Vector2(0, -20);
+            pointInstance.AddChild(timerLabel);
+            newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
         }
         return pointsFilled;
     }
@@ -77,10 +74,6 @@ public partial class MapGenPoisson : Node2D
                     AddChild(newLine);
                 }
             }
-            /*            while (newConnection == point || point.GetPosition().DistanceTo(newConnection.GetPosition()) > 60)
-                        {
-                            newConnection = pointsPassed[GD.RandRange(1, pointsPassed.Count) - 1];
-                        }*/
 
 
         }

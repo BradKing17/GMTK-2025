@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv46ie1pokb30"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_7a84f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hb031"]
+
+[node name="Marker" type="Node2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+scale = Vector2(5, 5)
+mesh = SubResource("QuadMesh_7a84f")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hb031")
+debug_color = Color(0.00457618, 0.344956, 0.557365, 0.42)

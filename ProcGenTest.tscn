@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://croiudnto0de8"]
+
+[ext_resource type="Script" uid="uid://dkbjl1gwbce6" path="res://MapGenerator.cs" id="1_uctsy"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_uctsy")
+mapSizeX = 800
+mapSizeY = 500
+numOfPoints = 100
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)

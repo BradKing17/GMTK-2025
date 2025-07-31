@@ -1,23 +1,8 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class MapGenerator : Node
 {
-
-    class Point
-    {
-        public Point() { }
-
-        private Vector2 position;
-        private int numOfConnections;
-
-        public Vector2 GetPosition() { return position; }
-        public void SetPosition(Vector2 newPos) { position = newPos; }
-        public int GetNumConnections() { return numOfConnections; }
-    }
-
-
     [Export]
     private int mapSizeX = 0;
     [Export]
@@ -61,7 +46,6 @@ public partial class MapGenerator : Node
         for (int i = 0; i < numOfPoints; i++)
         {
             Point newPoint = new Point();
-            
             Vector2 newPos = new Vector2(GD.RandRange(0, mapSizeX), (GD.RandRange(0, mapSizeY)));
             foreach(Point point in pointsFilled)
             {
@@ -71,14 +55,20 @@ public partial class MapGenerator : Node
                 }
             }
             newPoint.SetPosition(newPos);
-            
-            pointsFilled.Add(newPoint);
 
             Node2D pointInstance = (Node2D)pointMarker.Instantiate();
             pointInstance.Position = newPoint.GetPosition();
+
+            Label timerLabel = new Label();
+            timerLabel.Text = "0";
+            timerLabel.Position = new Vector2(0, -20); 
+            pointInstance.AddChild(timerLabel);
+
+            newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
+            pointsFilled.Add(newPoint);
+
             GD.Print(newPoint.GetPosition());
             this.AddChild(pointInstance);
-
         }
 
         return pointsFilled;

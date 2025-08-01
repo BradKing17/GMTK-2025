@@ -22,6 +22,16 @@ public partial class PointManager : Node
         points.Add(point);
     }
 
+    public void DeregisterPoint(Points point)
+    {
+        points.Remove(point);
+    }
+
+    public void AddPointNeighbour(Points point, Points neighbour)
+    {
+        point.AddNeighbour(neighbour);
+    }
+
     public override void _Process(double delta)
     {
         bool anyMaxPostReached = false;

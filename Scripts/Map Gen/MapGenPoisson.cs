@@ -25,11 +25,9 @@ public partial class MapGenPoisson : Node2D
 
     public override void _Ready()
     {
-
         pointManager = new PointManager();
         AddChild(pointManager);
-        List<Points> points = new List<Points>();
-        points = GeneratePoints();
+        List<Points> points = new(GeneratePoints());
         GenerateStreets(points);
     }
 
@@ -51,12 +49,13 @@ public partial class MapGenPoisson : Node2D
         foreach (var vector in newVectors)
         {
             Points newPoint = PackedPoint.Instantiate<Points>();
-            
+            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
+
+
             // Add visual representation for the point
             var square = new ColorRect();
             square.Size = new Vector2(20, 20);
             square.Position = new Vector2(-10, -10); // Center it
-            newPoint.AddChild(square);
             
             // Randomly select a point type
             string selectedType = pointTypes[GD.RandRange(0, pointTypes.Length - 1)];
@@ -129,12 +128,11 @@ public partial class MapGenPoisson : Node2D
 
             pointsFilled.Add(newPoint);
             pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
-            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
             GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
-
             AddChild(newPoint);
+            newPoint.AddChild(square);
         }
 
         return pointsFilled;

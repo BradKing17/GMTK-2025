@@ -4,9 +4,8 @@ using System;
 public partial class Status : Node
 {
     protected enum Feeling { 
-			Shoes, Socks, Trousers, 
-			Dress, Outfit, Shirt, 
-			Headwear, Accessory,
+			Elated, Happy, Fine, Alright,
+            SubPar, 
     };
     [Export] Feeling feeling;
 
@@ -17,6 +16,4 @@ public partial class Status : Node
     [Export] public RichTextLabel StatusContent;
     [Export] public RichTextLabel VehicleContent;
     [Export] public RichTextLabel FatigueContent;
-
-
 }

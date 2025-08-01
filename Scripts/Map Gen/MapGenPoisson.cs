@@ -6,22 +6,26 @@ using System.IO;
 using System.Linq.Expressions;
 public partial class MapGenPoisson : Node2D
 {
-    [Export]
-    public Polygon2D mapShape;
+    //Point Shape Variables 
+    [Export] public Polygon2D mapShape;
+    [Export] private float poisson_radius = 20;
+    [Export] private float maxConnectionDistance = 50;
+    [Export] Vector2 pointScale = new (0.35f,0.35f);
+    [Export] private float pointRadius = 20;
 
-    [Export]
-    private float poisson_radius = 20;
-
-    [Export]
-    private float maxConnectionDistance = 50;
-
-    [Export] 
-    Vector2 pointScale = new (0.35f,0.35f);
+    //Point Weighting Variables
+    [Export] private Single house = 40.0f; // Most common
+    [Export] private Single postBox = 15.0f; // Common
+    [Export] private Single parkBench = 12.0f; // Fairly common
+    [Export] private Single waterFountain = 10.0f; // Moderate
+    [Export] private Single postOffice = 8.0f; // Less common
+    [Export] private Single postDepot = 5.0f; // Rare
+    [Export] private Single granniesHouse = 2.0f; // Very rare
 
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
     private PointManager pointManager;
-    [Export] private float pointRadius = 20;
+    
 
     public override void _Ready()
     {
@@ -47,13 +51,13 @@ public partial class MapGenPoisson : Node2D
         // Define weights for different point types
         var pointTypes = new Godot.Collections.Dictionary<string, float>
         {
-            { "House", 40.0f },           // Most common
-            { "PostBox", 15.0f },         // Common
-            { "ParkBench", 12.0f },       // Fairly common
-            { "WaterFountain", 10.0f },   // Moderate
-            { "PostOffice", 8.0f },       // Less common
-            { "PostDepot", 5.0f },        // Rare
-            { "GranniesHouse", 2.0f }     // Very rare
+            { "House", house },
+            { "PostBox", postBox },
+            { "ParkBench", parkBench },
+            { "WaterFountain", waterFountain },
+            { "PostOffice", postOffice },
+            { "PostDepot", postDepot },
+            { "GranniesHouse", granniesHouse }
         };
         
         var weightedPointTypes = new List<string>();

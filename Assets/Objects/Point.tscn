@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://div5fdcga8262" path="res://Scripts/Map Gen/Points.cs" id="1_nfgws"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n10gd"]
+radius = 20.0
 
 [node name="Point" type="Node2D" node_paths=PackedStringArray("area", "collider")]
 script = ExtResource("1_nfgws")

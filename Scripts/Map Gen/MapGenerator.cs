@@ -23,8 +23,8 @@ public partial class MapGenerator : Node
     private float maxConnectionDistance = 60;
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
-    private PointManager pointManager;    
-    [Export] Vector2 pointScale = new (0.35f,0.35f);
+    private PointManager pointManager;
+    [Export] private float pointRadius = 20;
     public override void _Ready()
     {
         pointManager = new PointManager();
@@ -71,7 +71,7 @@ public partial class MapGenerator : Node
             pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
 
             GD.Print(newPoint.GetPosition());
-            newPoint.Scale = pointScale;
+            newPoint.radius = this.pointRadius;
             this.AddChild(newPoint);
 
         }

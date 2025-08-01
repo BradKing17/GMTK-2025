@@ -170,13 +170,22 @@ public partial class MapGenPoisson : Node2D
             {
                 if (point.GetPosition().DistanceTo(newConnection.GetPosition()) < maxConnectionDistance && point != newConnection)
                 {
-                    Line2D newLine = new Line2D();
-                    newLine.AddPoint(point.GetPosition());
-                    newLine.AddPoint(newConnection.GetPosition());
-                    newLine.Width = 2;
-                    newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
-                    AddChild(newLine);
+                    point.AddNeighbour(newConnection);
+                    if (point.GetNumConnections() > 0)
+                    {
+                        Line2D newLine = new Line2D();
+                        newLine.AddPoint(point.GetPosition());
+                        newLine.AddPoint(newConnection.GetPosition());
+                        newLine.Width = 2;
+                        newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
+                        AddChild(newLine);
+                    }
+                    else
+                    {
+                        pointsPassed.Remove(point);
+                    }
                 }
+
             }
         }
     }

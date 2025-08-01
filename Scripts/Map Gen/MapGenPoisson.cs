@@ -6,22 +6,26 @@ using System.IO;
 using System.Linq.Expressions;
 public partial class MapGenPoisson : Node2D
 {
-    [Export]
-    public Polygon2D mapShape;
+    //Point Shape Variables 
+    [Export] public Polygon2D mapShape;
+    [Export] private float poisson_radius = 20;
+    [Export] private float maxConnectionDistance = 50;
+    [Export] Vector2 pointScale = new (0.35f,0.35f);
+    [Export] private float pointRadius = 20;
 
-    [Export]
-    private float poisson_radius = 20;
-
-    [Export]
-    private float maxConnectionDistance = 50;
-
-    [Export] 
-    Vector2 pointScale = new (0.35f,0.35f);
+    //Point Weighting Variables
+    [Export] private Single house = 40.0f; // Most common
+    [Export] private Single postBox = 15.0f; // Common
+    [Export] private Single parkBench = 12.0f; // Fairly common
+    [Export] private Single waterFountain = 10.0f; // Moderate
+    [Export] private Single postOffice = 8.0f; // Less common
+    [Export] private Single postDepot = 5.0f; // Rare
+    [Export] private Single granniesHouse = 2.0f; // Very rare
 
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
     private PointManager pointManager;
-    [Export] private float pointRadius = 20;
+    
 
     public override void _Ready()
     {
@@ -43,9 +47,29 @@ public partial class MapGenPoisson : Node2D
         
         List<Points> pointsFilled = new();
         
-        // Define weights for different point types (you can adjust these)
-        string[] pointTypes = { "House", "PostOffice", "ParkBench", "PostBox", "PostDepot", "WaterFountain", "GranniesHouse" };
+        // Define weights for different point types
+        var pointTypes = new Godot.Collections.Dictionary<string, float>
+        {
+            { "House", house },
+            { "PostBox", postBox },
+            { "ParkBench", parkBench },
+            { "WaterFountain", waterFountain },
+            { "PostOffice", postOffice },
+            { "PostDepot", postDepot },
+            { "GranniesHouse", granniesHouse }
+        };
+        
+        var weightedPointTypes = new List<string>();
+        foreach (var kvp in pointTypes)
+        {
+            int weight = Mathf.RoundToInt(kvp.Value);
+            for (int i = 0; i < weight; i++)
+            {
+                weightedPointTypes.Add(kvp.Key);
+            }
+        }
 
+        bool isFirstPoint = true;
         foreach (var vector in newVectors)
         {
             Points newPoint = PackedPoint.Instantiate<Points>();
@@ -55,12 +79,13 @@ public partial class MapGenPoisson : Node2D
             // Add visual representation for the point
             var square = new ColorRect();
             square.Size = new Vector2(20, 20);
-            square.Position = new Vector2(-10, -10); // Center it
-            
-            // Randomly select a point type
-            string selectedType = pointTypes[GD.RandRange(0, pointTypes.Length - 1)];
-            
-            // Set color based on point type
+            square.Position = new Vector2(-10, -10); 
+            newPoint.AddChild(square);
+
+            // Ensure first point is always a PostOffice, then use weighted random selection
+            string selectedType = isFirstPoint ? "PostOffice" : weightedPointTypes[GD.RandRange(0, weightedPointTypes.Count - 1)];
+            isFirstPoint = false;
+
             Color pointColor = selectedType switch
             {
                 "House" => new Color(0, 1, 0), // Green
@@ -73,15 +98,13 @@ public partial class MapGenPoisson : Node2D
                 _ => new Color(1, 1, 1) // White default
             };
             square.Color = pointColor;
-            
-            newPoint.SetPosition(vector);
-            newPoint.SetPointType(selectedType); // Set the point type
 
-            // Add type-specific behavior based on the selected type
+            newPoint.SetPosition(vector);
+            newPoint.SetPointType(selectedType); 
+
             switch (selectedType)
             {
                 case "House":
-                    // Add timer and label for House types
                     Label timerLabel = new()
                     {
                         Text = "0",
@@ -94,33 +117,32 @@ public partial class MapGenPoisson : Node2D
 
                     };
                     newPoint.AddChild(timerLabel);
-                    
-                    // Create a House component and attach it to the point
+
                     House houseComponent = new House();
                     newPoint.AddChild(houseComponent);
                     houseComponent.InitializeTimer(this, timerLabel);
                     break;
-                    
+
                 case "GranniesHouse":
                     // Add GranniesHouse-specific behavior here
                     break;
-                    
+
                 case "PostOffice":
                     // Add PostOffice-specific behavior here
                     break;
-                    
+
                 case "ParkBench":
                     // Add ParkBench-specific behavior here
                     break;
-                    
+
                 case "PostBox":
                     // Add PostBox-specific behavior here
                     break;
-                    
+
                 case "PostDepot":
                     // Add PostDepot-specific behavior here
                     break;
-                    
+
                 case "WaterFountain":
                     // Add WaterFountain-specific behavior here
                     break;
@@ -132,24 +154,11 @@ public partial class MapGenPoisson : Node2D
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
             AddChild(newPoint);
-            newPoint.AddChild(square);
         }
 
         return pointsFilled;
     }
 
-    // private void AddTimer(Points newPoint)
-    // {
-    //     Label timerLabel = new()
-    //     {
-    //         Text = "0",
-    //         Position = new Vector2(0, -40)
-    //     };
-    //     newPoint.radius = pointRadius;
-    //     newPoint.AddChild(timerLabel);
-
-    //     newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
-    // }
 
     void GenerateStreets(List<Points> pointsPassed)
     {

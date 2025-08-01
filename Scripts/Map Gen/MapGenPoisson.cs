@@ -1,7 +1,9 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Linq.Expressions;
 public partial class MapGenPoisson : Node2D
 {
     [Export]
@@ -13,6 +15,7 @@ public partial class MapGenPoisson : Node2D
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
     private PointManager pointManager;
+    [Export] private float pointRadius = 20;
 
     public override void _Ready()
     {
@@ -28,23 +31,23 @@ public partial class MapGenPoisson : Node2D
     {
         var poissonScript = GD.Load<GDScript>("res://addons/PoissonDiscSampling/poisson_disc_sampling.gd");
         var poissonScriptNode = (GodotObject)poissonScript.New();
-        Vector2[] newVectors = (Vector2[])poissonScriptNode.Call("generate_points_for_polygon", mapShape.Polygon, poisson_radius, 10); ;
+        Vector2[] newVectors = (Vector2[])poissonScriptNode.Call("generate_points_for_polygon", mapShape.Polygon, poisson_radius, 10);
 
+        var json = new Json { Data = Json.ParseString(Godot.FileAccess.GetFileAsString("res://Scripts/Map Gen/Names/List.json")) };
+        Godot.Collections.Dictionary<string, string[]> nodeDict = new((Dictionary)json.Data);
+        RandomNumberGenerator nameRNG = new();
         List<Points> pointsFilled = new();
-
         foreach (var vector in newVectors)
         {
-
             Points newPoint = PackedPoint.Instantiate<Points>();
 
             AddTimer(newPoint);
 
             newPoint.SetPosition(vector);
 
-
             pointsFilled.Add(newPoint);
             pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
-
+            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
             newPoint.Position = newPoint.GetPosition();
 
             AddChild(newPoint);
@@ -60,6 +63,7 @@ public partial class MapGenPoisson : Node2D
             Text = "0",
             Position = new Vector2(0, -40)
         };
+        newPoint.radius = pointRadius;
         newPoint.AddChild(timerLabel);
 
         newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label

@@ -27,11 +27,16 @@ public partial class PointManager : Node
         bool anyMaxPostReached = false;
         foreach (var point in points)
         {
-            if (point.maxPostReached)
+            // Check if this point has a House component
+            foreach (Node child in point.GetChildren())
             {
-                anyMaxPostReached = true;
-                break;
+                if (child is House house && house.maxPostReached)
+                {
+                    anyMaxPostReached = true;
+                    break;
+                }
             }
+            if (anyMaxPostReached) break;
         }
 
         if (anyMaxPostReached)

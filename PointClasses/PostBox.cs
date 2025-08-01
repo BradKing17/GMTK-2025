@@ -1,6 +1,6 @@
 using Godot;
 using System;
 
-public partial class PostBox : Node
+public partial class PostBox : Points
 {
 }

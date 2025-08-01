@@ -1,2 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# VS Code settings
+.vscode/
+.vs/

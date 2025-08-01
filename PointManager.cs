@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public partial class PointManager : Node
 {
-    private List<Point> points = new List<Point>();
+    private List<Points> points = [];
     private Timer gameOverTimer;
     private float gameOverTimeLeft = 60f;
     private bool timerActive = false;
@@ -17,7 +17,7 @@ public partial class PointManager : Node
         AddChild(gameOverTimer);
     }
 
-    public void RegisterPoint(Point point)
+    public void RegisterPoint(Points point)
     {
         points.Add(point);
     }

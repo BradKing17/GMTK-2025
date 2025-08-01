@@ -1,19 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://croiudnto0de8"]
+[gd_scene load_steps=4 format=3 uid="uid://croiudnto0de8"]
 
 [ext_resource type="Script" uid="uid://feixikc5qxmk" path="res://Scripts/Map Gen/MapGenPoisson.cs" id="1_00hob"]
 [ext_resource type="Script" path="res://Scripts/Map Gen/PointManager.cs" id="2_00hob"]
+[ext_resource type="Script" uid="uid://b5c0r81cmitiw" path="res://Scripts/Main/Camera.cs" id="3_i8b30"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("mapShape")]
+[node name="Root" type="Node2D"]
+
+[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mapShape")]
 script = ExtResource("1_00hob")
 mapShape = NodePath("Polygon2D")
 poisson_radius = 30.0
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
-
-[node name="PointManager" type="Node" parent="."]
+[node name="PointManager" type="Node" parent="Map"]
 script = ExtResource("2_00hob")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="Map"]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 406, 236, 500, 240, 570, 227, 634, 224, 768, 223, 823, 279, 862, 383, 823, 446, 697, 461, 597, 464, 502, 465, 421, 473, 348, 554, 241, 586, 171, 511, 147, 412, 235, 346)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("3_i8b30")

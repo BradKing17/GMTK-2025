@@ -42,6 +42,7 @@ public partial class MapGenPoisson : Node2D
         var json = new Json { Data = Json.ParseString(Godot.FileAccess.GetFileAsString("res://Scripts/Map Gen/Names/List.json")) };
         Godot.Collections.Dictionary<string, string[]> nodeDict = new((Dictionary)json.Data);
         RandomNumberGenerator nameRNG = new();
+        
         List<Points> pointsFilled = new();
         
         // Define weights for different point types (you can adjust these)

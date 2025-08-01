@@ -139,18 +139,18 @@ public partial class MapGenPoisson : Node2D
         return pointsFilled;
     }
 
-    private void AddTimer(Points newPoint)
-    {
-        Label timerLabel = new()
-        {
-            Text = "0",
-            Position = new Vector2(0, -40)
-        };
-        newPoint.radius = pointRadius;
-        newPoint.AddChild(timerLabel);
+    // private void AddTimer(Points newPoint)
+    // {
+    //     Label timerLabel = new()
+    //     {
+    //         Text = "0",
+    //         Position = new Vector2(0, -40)
+    //     };
+    //     newPoint.radius = pointRadius;
+    //     newPoint.AddChild(timerLabel);
 
-        newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
-    }
+    //     newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
+    // }
 
     void GenerateStreets(List<Points> pointsPassed)
     {

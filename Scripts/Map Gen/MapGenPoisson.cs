@@ -75,6 +75,7 @@ public partial class MapGenPoisson : Node2D
             Points newPoint = PackedPoint.Instantiate<Points>();
             newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
 
+            AddChild(newPoint);
 
             // Add visual representation for the point
             var square = new ColorRect();
@@ -153,7 +154,6 @@ public partial class MapGenPoisson : Node2D
             GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
-            AddChild(newPoint);
         }
 
         return pointsFilled;

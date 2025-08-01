@@ -12,8 +12,13 @@ public partial class MapGenPoisson : Node2D
 
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
 
+    private PointManager pointManager;
+
     public override void _Ready()
     {
+
+        pointManager = new PointManager();
+        AddChild(pointManager);
         List<Points> points = new List<Points>();
         points = GeneratePoints();
         GenerateStreets(points);
@@ -35,7 +40,10 @@ public partial class MapGenPoisson : Node2D
             AddTimer(newPoint);
 
             newPoint.SetPosition(vector);
+
+
             pointsFilled.Add(newPoint);
+            pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
 
             newPoint.Position = newPoint.GetPosition();
 

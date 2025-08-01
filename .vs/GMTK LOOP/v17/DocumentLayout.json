@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|d:\\godotprojs\\gmtk loop\\gmtk-2025\\mapgenpoisson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|solutionrelative:mapgenpoisson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|d:\\godotprojs\\gmtk loop\\gmtk-2025\\mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|solutionrelative:mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|d:\\godotprojs\\gmtk loop\\gmtk-2025\\point.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|solutionrelative:point.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|d:\\godotprojs\\gmtk loop\\gmtk-2025\\pointmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D128EB4A-53A4-4BD8-B941-7605DCEEAF9E}|GMTK Loop.csproj|solutionrelative:pointmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,17 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Point.cs",
+              "DocumentMoniker": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\Point.cs",
+              "RelativeDocumentMoniker": "Point.cs",
+              "ToolTip": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\Point.cs",
+              "RelativeToolTip": "Point.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T22:44:47.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MapGenPoisson.cs",
+              "DocumentMoniker": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\MapGenPoisson.cs",
+              "RelativeDocumentMoniker": "MapGenPoisson.cs",
+              "ToolTip": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\MapGenPoisson.cs",
+              "RelativeToolTip": "MapGenPoisson.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDYAAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T22:39:22.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PointManager.cs",
+              "DocumentMoniker": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\PointManager.cs",
+              "RelativeDocumentMoniker": "PointManager.cs",
+              "ToolTip": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\PointManager.cs",
+              "RelativeToolTip": "PointManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T22:37:34.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MapGenerator.cs",
               "DocumentMoniker": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\MapGenerator.cs",
               "RelativeDocumentMoniker": "MapGenerator.cs",
               "ToolTip": "D:\\GodotProjs\\GMTK Loop\\GMTK-2025\\MapGenerator.cs",
               "RelativeToolTip": "MapGenerator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-30T18:15:36.129Z",
               "EditorCaption": ""

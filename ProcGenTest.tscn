@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://croiudnto0de8"]
 
 [ext_resource type="Script" uid="uid://feixikc5qxmk" path="res://MapGenPoisson.cs" id="1_uctsy"]
-[ext_resource type="Script" uid="uid://bnh3ssra3f6tm" path="res://PointManager.cs" id="2_00hob"]
+[ext_resource type="Script" path="res://PointManager.cs" id="2_00hob"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("mapShape")]
 script = ExtResource("1_uctsy")

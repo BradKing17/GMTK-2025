@@ -44,23 +44,42 @@ public partial class MapGenPoisson : Node2D
         RandomNumberGenerator nameRNG = new();
         List<Points> pointsFilled = new();
         
-        // Define weights for different point types (you can adjust these)
-        string[] pointTypes = { "House", "PostOffice", "ParkBench", "PostBox", "PostDepot", "WaterFountain", "GranniesHouse" };
+        // Define weights for different point types
+        var pointTypes = new Godot.Collections.Dictionary<string, float>
+        {
+            { "House", 40.0f },           // Most common
+            { "PostBox", 15.0f },         // Common
+            { "ParkBench", 12.0f },       // Fairly common
+            { "WaterFountain", 10.0f },   // Moderate
+            { "PostOffice", 8.0f },       // Less common
+            { "PostDepot", 5.0f },        // Rare
+            { "GranniesHouse", 2.0f }     // Very rare
+        };
+        
+        var weightedPointTypes = new List<string>();
+        foreach (var kvp in pointTypes)
+        {
+            int weight = Mathf.RoundToInt(kvp.Value);
+            for (int i = 0; i < weight; i++)
+            {
+                weightedPointTypes.Add(kvp.Key);
+            }
+        }
 
+        bool isFirstPoint = true;
         foreach (var vector in newVectors)
         {
             Points newPoint = PackedPoint.Instantiate<Points>();
-            
-            // Add visual representation for the point
+
             var square = new ColorRect();
             square.Size = new Vector2(20, 20);
-            square.Position = new Vector2(-10, -10); // Center it
+            square.Position = new Vector2(-10, -10); 
             newPoint.AddChild(square);
-            
-            // Randomly select a point type
-            string selectedType = pointTypes[GD.RandRange(0, pointTypes.Length - 1)];
-            
-            // Set color based on point type
+
+            // Ensure first point is always a PostOffice, then use weighted random selection
+            string selectedType = isFirstPoint ? "PostOffice" : weightedPointTypes[GD.RandRange(0, weightedPointTypes.Count - 1)];
+            isFirstPoint = false;
+
             Color pointColor = selectedType switch
             {
                 "House" => new Color(0, 1, 0), // Green
@@ -73,15 +92,13 @@ public partial class MapGenPoisson : Node2D
                 _ => new Color(1, 1, 1) // White default
             };
             square.Color = pointColor;
-            
-            newPoint.SetPosition(vector);
-            newPoint.SetPointType(selectedType); // Set the point type
 
-            // Add type-specific behavior based on the selected type
+            newPoint.SetPosition(vector);
+            newPoint.SetPointType(selectedType); 
+
             switch (selectedType)
             {
                 case "House":
-                    // Add timer and label for House types
                     Label timerLabel = new()
                     {
                         Text = "0",
@@ -94,41 +111,40 @@ public partial class MapGenPoisson : Node2D
 
                     };
                     newPoint.AddChild(timerLabel);
-                    
-                    // Create a House component and attach it to the point
+
                     House houseComponent = new House();
                     newPoint.AddChild(houseComponent);
                     houseComponent.InitializeTimer(this, timerLabel);
                     break;
-                    
+
                 case "GranniesHouse":
                     // Add GranniesHouse-specific behavior here
                     break;
-                    
+
                 case "PostOffice":
                     // Add PostOffice-specific behavior here
                     break;
-                    
+
                 case "ParkBench":
                     // Add ParkBench-specific behavior here
                     break;
-                    
+
                 case "PostBox":
                     // Add PostBox-specific behavior here
                     break;
-                    
+
                 case "PostDepot":
                     // Add PostDepot-specific behavior here
                     break;
-                    
+
                 case "WaterFountain":
                     // Add WaterFountain-specific behavior here
                     break;
             }
 
             pointsFilled.Add(newPoint);
-            pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
-            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
+            pointManager.RegisterPoint(newPoint); 
+            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length - 1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length - 1)];
             GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
@@ -139,18 +155,6 @@ public partial class MapGenPoisson : Node2D
         return pointsFilled;
     }
 
-    // private void AddTimer(Points newPoint)
-    // {
-    //     Label timerLabel = new()
-    //     {
-    //         Text = "0",
-    //         Position = new Vector2(0, -40)
-    //     };
-    //     newPoint.radius = pointRadius;
-    //     newPoint.AddChild(timerLabel);
-
-    //     newPoint.InitializeTimer(this, timerLabel); // Start the timer for this point and pass the label
-    // }
 
     void GenerateStreets(List<Points> pointsPassed)
     {

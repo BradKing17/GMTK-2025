@@ -1,0 +1,454 @@
+[gd_scene load_steps=21 format=3 uid="uid://dm467cdfjiame"]
+
+[ext_resource type="Script" uid="uid://cbfmud06ab1le" path="res://Scripts/Status/Status.cs" id="1_bla67"]
+[ext_resource type="Texture2D" uid="uid://bw7kuobyqv5o5" path="res://Assets/Images/Status/Car.png" id="1_hirft"]
+[ext_resource type="Texture2D" uid="uid://l3tox5hedvut" path="res://Assets/Images/Status/Car_wheel.png" id="2_iivee"]
+[ext_resource type="Texture2D" uid="uid://b0p75i2134yp6" path="res://Assets/Images/Status/Happy_0.png" id="3_y1g10"]
+[ext_resource type="Texture2D" uid="uid://bc0of6ueywujk" path="res://Assets/Images/Status/Happy_1.png" id="4_moewq"]
+[ext_resource type="Texture2D" uid="uid://b0aw72cgiu67e" path="res://Assets/Images/Status/Neutral_0.png" id="5_dd3bk"]
+[ext_resource type="Texture2D" uid="uid://bhj7ngimcnofy" path="res://Assets/Images/Status/Neutral_1.png" id="6_bla67"]
+[ext_resource type="Texture2D" uid="uid://cepnu70y126g6" path="res://Assets/Images/Status/Sad_0.png" id="7_u5jyj"]
+[ext_resource type="Texture2D" uid="uid://xkijpgtru6ta" path="res://Assets/Images/Status/Sad_1.png" id="8_fjwjw"]
+[ext_resource type="Texture2D" uid="uid://dp7762qgrsix6" path="res://Assets/Images/Status/Trolley.png" id="9_moewq"]
+[ext_resource type="Texture2D" uid="uid://dp3no2cxahx70" path="res://Assets/Images/Status/Trolley_wheel.png" id="10_dd3bk"]
+[ext_resource type="AnimationLibrary" uid="uid://dh848bx0642ln" path="res://Assets/Animations/StatusAnimations.res" id="11_dd3bk"]
+
+[sub_resource type="Theme" id="Theme_moewq"]
+
+[sub_resource type="Theme" id="Theme_dd3bk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bla67"]
+bg_color = Color(0.845432, 0.906154, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.848056, 0, 0.249005, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 3
+shadow_offset = Vector2(1.055, 0.645)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_6k3o5"]
+frames = 2
+frame_0/texture = ExtResource("7_u5jyj")
+frame_0/duration = 0.25
+frame_1/texture = ExtResource("8_fjwjw")
+frame_1/duration = 0.2
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_w4ai2"]
+frames = 2
+frame_0/texture = ExtResource("5_dd3bk")
+frame_0/duration = 0.25
+frame_1/texture = ExtResource("6_bla67")
+frame_1/duration = 0.25
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_07qgm"]
+frames = 2
+frame_0/texture = ExtResource("3_y1g10")
+frame_0/duration = 0.25
+frame_1/texture = ExtResource("4_moewq")
+frame_1/duration = 0.25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_moewq"]
+bg_color = Color(0.854474, 0.959883, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.854883, 0, 0.222815, 1)
+corner_radius_top_left = 6
+corner_radius_bottom_left = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dd3bk"]
+bg_color = Color(0.854474, 0.959883, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.854883, 0, 0.222815, 1)
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+anti_aliasing = false
+
+[node name="StatusScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bla67")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 190.0
+offset_bottom = 215.0
+theme = SubResource("Theme_moewq")
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_dd3bk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bla67")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/PanelContainer/SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(170, 170)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport"]
+position = Vector2(85, 85)
+
+[node name="Trolley" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D"]
+texture = ExtResource("9_moewq")
+
+[node name="TrolleyWheel" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Trolley"]
+position = Vector2(-29, 35)
+texture = ExtResource("10_dd3bk")
+
+[node name="TrolleyWheel2" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Trolley"]
+position = Vector2(13, 36)
+texture = ExtResource("10_dd3bk")
+
+[node name="Car" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D"]
+texture = ExtResource("1_hirft")
+
+[node name="CarWheel" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Car"]
+position = Vector2(41, 47)
+texture = ExtResource("2_iivee")
+
+[node name="CarWheel2" type="Sprite2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Car"]
+position = Vector2(-37, 47)
+texture = ExtResource("2_iivee")
+
+[node name="Postie" type="Node2D" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D"]
+position = Vector2(1, -15)
+scale = Vector2(0.590004, 0.590004)
+
+[node name="Sad" type="TextureRect" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Postie"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.5
+offset_top = -48.5
+offset_right = 50.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = SubResource("AnimatedTexture_6k3o5")
+
+[node name="Neutral" type="TextureRect" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Postie"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -47.5
+offset_right = 51.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AnimatedTexture_w4ai2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Happy" type="TextureRect" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Node2D/Postie"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.5
+offset_top = -48.5
+offset_right = 50.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = SubResource("AnimatedTexture_07qgm")
+
+[node name="Status" type="VSeparator" parent="VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 44.985)
+layout_mode = 2
+
+[node name="Title" type="Panel" parent="VBoxContainer/Status"]
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+offset_right = 75.38
+theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Status/Title"]
+layout_mode = 2
+offset_right = 89.81
+offset_bottom = 41.16
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Status"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/Status"]
+custom_minimum_size = Vector2(106.12, 45)
+layout_mode = 2
+offset_left = 84.0
+offset_right = 182.5
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dd3bk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Status/Panel2"]
+offset_left = 9.0
+offset_top = 2.0
+offset_right = 98.81
+offset_bottom = 43.16
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Fatal
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status2" type="VSeparator" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Title" type="Panel" parent="VBoxContainer/Status2"]
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+offset_right = 90.0
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Status2/Title"]
+layout_mode = 2
+offset_right = 89.81
+offset_bottom = 41.16
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Status"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/Status2"]
+custom_minimum_size = Vector2(106.12, 45)
+layout_mode = 2
+offset_left = 84.0
+offset_right = 182.5
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dd3bk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Status2/Panel2"]
+offset_left = 9.0
+offset_top = 2.0
+offset_right = 98.81
+offset_bottom = 43.16
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Fatal
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = -6
+columns = 2
+
+[node name="StatusTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Status"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusContent" type="Panel" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(94.125, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dd3bk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusContent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Fatal
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VehicleTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Vehicle"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VehicleContent" type="Panel" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dd3bk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleContent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Car
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FatigueTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Fatigue"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FatigueContent" type="Panel" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dd3bk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueContent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -20.5
+offset_right = 41.04
+offset_bottom = 20.66
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Fine"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CarPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("11_dd3bk")
+}
+autoplay = "Driving"
+
+[node name="TrolleyPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"StatusAnimations": ExtResource("11_dd3bk")
+}
+autoplay = "StatusAnimations/TrolleyDriving"

@@ -102,6 +102,7 @@ public partial class MapGenPoisson : Node2D
                 _ => new Color(1, 1, 1) // White default
             };
             square.Color = pointColor;
+            newPoint.mainColor = pointColor;
 
             newPoint.SetPosition(vector);
             newPoint.SetPointType(selectedType); 
@@ -128,6 +129,7 @@ public partial class MapGenPoisson : Node2D
                     break;
 
                 case "GranniesHouse":
+
                     // Add GranniesHouse-specific behavior here
                     break;
 
@@ -199,7 +201,7 @@ public partial class MapGenPoisson : Node2D
         }
         foreach (Points point in pointsPassed)
         {
-            GD.Print("Num of connections: " + point.GetNeighbours().Count);
+           // GD.Print("Num of connections: " + point.GetNeighbours().Count);
 
             for (int i = 0; i < point.GetNeighbours().Count; i++)
             {

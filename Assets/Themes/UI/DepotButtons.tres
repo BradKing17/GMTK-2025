@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://b4vyb35r6pvwi"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://b0jsdx3qi35st"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flcmw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pg7as"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
 skew = Vector2(-0.075, 0)
 border_width_left = 6
@@ -17,23 +17,24 @@ shadow_size = 3
 shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwy53"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cff3j"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
+skew = Vector2(-0.075, 0)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.854883, 0, 0.222815, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-corner_detail = 5
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 2
 shadow_size = 3
 shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii2b7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7j1u2"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
 skew = Vector2(-0.075, 0)
 border_width_left = 6
@@ -51,6 +52,6 @@ shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false
 
 [resource]
-Button/styles/hover = SubResource("StyleBoxFlat_flcmw")
-Button/styles/normal = SubResource("StyleBoxFlat_kwy53")
-Button/styles/pressed = SubResource("StyleBoxFlat_ii2b7")
+Button/styles/hover = SubResource("StyleBoxFlat_pg7as")
+Button/styles/normal = SubResource("StyleBoxFlat_cff3j")
+Button/styles/pressed = SubResource("StyleBoxFlat_7j1u2")

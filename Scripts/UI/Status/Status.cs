@@ -3,9 +3,7 @@ using System;
 
 public partial class Status : Node
 {
-    protected enum Feeling { 
-			Elated, Happy, Fine, Alright,
-            SubPar, 
+    protected enum Feeling {
     };
     [Export] Feeling feeling;
 

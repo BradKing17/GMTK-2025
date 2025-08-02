@@ -1,18 +1,16 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://b4vyb35r6pvwi"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://oi21iduuwlt3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flcmw"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
-skew = Vector2(-0.075, 0)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
 border_color = Color(1, 0.351382, 0.307233, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 shadow_size = 3
 shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false
@@ -28,24 +26,21 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
-corner_detail = 5
 shadow_size = 3
 shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii2b7"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
-skew = Vector2(-0.075, 0)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.915115, 0.461821, 7.70092e-07, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 shadow_size = 3
 shadow_offset = Vector2(3.5, 1.745)
 anti_aliasing = false

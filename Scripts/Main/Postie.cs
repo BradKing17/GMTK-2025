@@ -199,9 +199,10 @@ public partial class Postie : Node2D
     private bool mouseInside = false;
     private Area2D area;
     private CollisionShape2D collider;
-    private Vehicle vehicle = Vehicle.SetVehicle(Vehicle.Transport.Walking);
-    private Status status = new();    
-    private PackedScene StatusScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/StatusScreen.tscn");
+    public Vehicle vehicle = Vehicle.SetVehicle(Vehicle.Transport.Walking);
+    public Status status = new();    
+    private PackedScene PackedStatusScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/StatusScreen.tscn");
+    public PostieStatus StatusScreen;
 
     [Export] CanvasLayer debugcanvaslayer;
     public override void _Ready()
@@ -258,12 +259,13 @@ public partial class Postie : Node2D
 
     private void createStatusScreen()
     {
-        var statusScreen = StatusScreen.Instantiate<PostieStatus>();
-        statusScreen.NameLabel.Text = name;
-        statusScreen.StatusLabel.Text = status.feeling.ToString();
-        statusScreen.VehicleOptionsButton.Selected = (int)vehicle.transport;
-        statusScreen.FatigueLabel.Text = status.fatiguePercentage.ToString();
-
-        debugcanvaslayer.AddChild(statusScreen);
+        if(StatusScreen != null){ return; };
+        StatusScreen = PackedStatusScreen.Instantiate<PostieStatus>();
+        StatusScreen.soverignPostie = this;
+        StatusScreen.NameLabel.Text = name;
+        StatusScreen.StatusLabel.Text = status.feeling.ToString();
+        StatusScreen.VehicleOptionsButton.Selected = (int)vehicle.transport;
+        StatusScreen.FatigueLabel.Text = status.fatiguePercentage.ToString();
+        debugcanvaslayer.AddChild(StatusScreen);
     }
 }

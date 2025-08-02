@@ -1,6 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://dm467cdfjiame"]
+[gd_scene load_steps=37 format=3 uid="uid://dm467cdfjiame"]
 
-[ext_resource type="Script" uid="uid://cbfmud06ab1le" path="res://Scripts/UI/Status/Status.cs" id="1_i2swm"]
+[ext_resource type="Script" uid="uid://cbfmud06ab1le" path="res://Scripts/UI/Status/PostieStatus.cs" id="1_i2swm"]
 [ext_resource type="Texture2D" uid="uid://dp7762qgrsix6" path="res://Assets/Images/Status/Trolley.png" id="2_fquml"]
 [ext_resource type="Texture2D" uid="uid://dp3no2cxahx70" path="res://Assets/Images/Status/Trolley_wheel.png" id="3_kpwbp"]
 [ext_resource type="Texture2D" uid="uid://bw7kuobyqv5o5" path="res://Assets/Images/Status/Car.png" id="4_3lp2p"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://xkijpgtru6ta" path="res://Assets/Images/Status/Sad_1.png" id="7_hkiqx"]
 [ext_resource type="Texture2D" uid="uid://b0aw72cgiu67e" path="res://Assets/Images/Status/Neutral_0.png" id="8_14wwy"]
 [ext_resource type="Texture2D" uid="uid://bhj7ngimcnofy" path="res://Assets/Images/Status/Neutral_1.png" id="9_dn4g7"]
+[ext_resource type="Texture2D" uid="uid://bnlhyc0h02rr0" path="res://Assets/Images/Status/Boot.png" id="9_hkiqx"]
 [ext_resource type="Texture2D" uid="uid://b0p75i2134yp6" path="res://Assets/Images/Status/Happy_0.png" id="10_1jlln"]
 [ext_resource type="Texture2D" uid="uid://bc0of6ueywujk" path="res://Assets/Images/Status/Happy_1.png" id="11_q1uuc"]
 [ext_resource type="StyleBox" uid="uid://wp6y83q1uw6a" path="res://Assets/Objects/UI/StatusScreen.tres" id="12_3lp2p"]
@@ -19,6 +20,11 @@
 [ext_resource type="StyleBox" uid="uid://181datjkj6tx" path="res://Assets/Objects/UI/PostieButtonPressed.tres" id="18_dn4g7"]
 
 [sub_resource type="Theme" id="Theme_moewq"]
+
+[sub_resource type="Theme" id="Theme_q1uuc"]
+Button/styles/hover = ExtResource("13_hkiqx")
+Button/styles/normal = ExtResource("14_14wwy")
+Button/styles/pressed = ExtResource("18_dn4g7")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5jyj"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
@@ -147,11 +153,6 @@ PopupMenu/colors/font_hover_color = Color(0.24357, 0.243569, 0.243569, 1)
 PopupMenu/styles/hover = ExtResource("13_hkiqx")
 PopupMenu/styles/panel = ExtResource("14_14wwy")
 
-[sub_resource type="Theme" id="Theme_q1uuc"]
-Button/styles/hover = ExtResource("13_hkiqx")
-Button/styles/normal = ExtResource("14_14wwy")
-Button/styles/pressed = ExtResource("18_dn4g7")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lp2p"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
 border_width_left = 6
@@ -223,10 +224,21 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_1jlln")
 Button/styles/normal = SubResource("StyleBoxFlat_8fuhl")
 Button/styles/pressed = SubResource("StyleBoxFlat_3sl1l")
 
-[node name="StatusScreen" type="Control"]
+[node name="StatusScreen" type="Control" node_paths=PackedStringArray("NameLabel", "StatusLabel", "VehicleOptionsButton", "FatigueLabel", "closeButton", "vehicleSprites", "vehicleAnimator")]
 layout_mode = 3
 anchors_preset = 0
+offset_left = 880.0
+offset_top = 94.0
+offset_right = 880.0
+offset_bottom = 94.0
 script = ExtResource("1_i2swm")
+NameLabel = NodePath("VBoxContainer/NameButton")
+StatusLabel = NodePath("VBoxContainer/GridContainer/StatusContentPanel/StatusContentLabel")
+VehicleOptionsButton = NodePath("VBoxContainer/GridContainer/VehicleOptionsMenu")
+FatigueLabel = NodePath("VBoxContainer/GridContainer/FatigueContentPanel/FatigueContentLabel")
+closeButton = NodePath("Close")
+vehicleSprites = [NodePath("VBoxContainer/PanelContainer/Node2D/Van"), NodePath("VBoxContainer/PanelContainer/Node2D/Trolley")]
+vehicleAnimator = NodePath("AnimationPlayer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -235,23 +247,34 @@ offset_bottom = 215.0
 theme = SubResource("Theme_moewq")
 alignment = 1
 
-[node name="StatusTitle" type="Panel" parent="VBoxContainer"]
+[node name="NameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_q1uuc")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+action_mode = 0
+text = "Name
+"
+
+[node name="NamePanel" type="Panel" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u5jyj")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/StatusTitle"]
+[node name="NameLabel" type="RichTextLabel" parent="VBoxContainer/NamePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
+offset_left = -88.0
+offset_top = -20.5
+offset_right = 87.0
+offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -259,7 +282,7 @@ bbcode_enabled = true
 text = "Gary"
 fit_content = true
 scroll_active = false
-autowrap_mode = 1
+autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -284,19 +307,32 @@ texture = ExtResource("3_kpwbp")
 position = Vector2(13, 36)
 texture = ExtResource("3_kpwbp")
 
-[node name="Car" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D"]
+[node name="Van" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D"]
+visible = false
+position = Vector2(1, -14)
 texture = ExtResource("4_3lp2p")
 
-[node name="CarWheel" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Car"]
+[node name="VanWheel" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Van"]
 position = Vector2(41, 47)
 texture = ExtResource("5_8fuhl")
 
-[node name="CarWheel2" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Car"]
+[node name="VanWheel2" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Van"]
 position = Vector2(-37, 47)
 texture = ExtResource("5_8fuhl")
 
+[node name="Walking" type="Node2D" parent="VBoxContainer/PanelContainer/Node2D"]
+
+[node name="WalkingBoot" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Walking"]
+position = Vector2(-20, -1)
+texture = ExtResource("9_hkiqx")
+
+[node name="WalkingBoot2" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Walking"]
+position = Vector2(21, -2)
+texture = ExtResource("9_hkiqx")
+flip_h = true
+
 [node name="Postie" type="Node2D" parent="VBoxContainer/PanelContainer/Node2D"]
-position = Vector2(1, -15)
+position = Vector2(1.5, -38.5)
 scale = Vector2(0.590004, 0.590004)
 
 [node name="Sad" type="TextureRect" parent="VBoxContainer/PanelContainer/Node2D/Postie"]
@@ -344,114 +380,18 @@ grow_vertical = 2
 size_flags_horizontal = 4
 texture = SubResource("AnimatedTexture_07qgm")
 
-[node name="Status" type="VSeparator" parent="VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 44.985)
-layout_mode = 2
-
-[node name="Title" type="Panel" parent="VBoxContainer/Status"]
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-offset_right = 75.38
-theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Status/Title"]
-layout_mode = 2
-offset_right = 89.81
-offset_bottom = 41.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Status"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel2" type="Panel" parent="VBoxContainer/Status"]
-custom_minimum_size = Vector2(106.12, 45)
-layout_mode = 2
-offset_left = 84.0
-offset_right = 182.5
-offset_bottom = 45.0
-theme_override_styles/panel = ExtResource("12_3lp2p")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Status/Panel2"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 2.0
-offset_right = 98.81
-offset_bottom = 43.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fatal
-"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Status2" type="VSeparator" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Title" type="Panel" parent="VBoxContainer/Status2"]
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-offset_right = 90.0
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Status2/Title"]
-layout_mode = 2
-offset_right = 89.81
-offset_bottom = 41.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Status"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel2" type="Panel" parent="VBoxContainer/Status2"]
-custom_minimum_size = Vector2(106.12, 45)
-layout_mode = 2
-offset_left = 84.0
-offset_right = 182.5
-offset_bottom = 45.0
-theme_override_styles/panel = ExtResource("12_3lp2p")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Status2/Panel2"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 2.0
-offset_right = 98.81
-offset_bottom = 43.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fatal
-"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = -6
 columns = 2
 
-[node name="LevelTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="LevelTitlePanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/LevelTitle"]
+[node name="LevelTitleLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/LevelTitlePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -473,13 +413,13 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LevelContent" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="LevelContentPanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(94.125, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("12_3lp2p")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/LevelContent"]
+[node name="LevelContentLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/LevelContentPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -501,13 +441,13 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="StatusTitlePanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusTitle"]
+[node name="StatusTitleLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusTitlePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -529,13 +469,13 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusContent" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="StatusContentPanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(94.125, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("12_3lp2p")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusContent"]
+[node name="StatusContentLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusContentPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -558,13 +498,13 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VehicleTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="VehicleTitlePanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleTitle"]
+[node name="VehicleTitleLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleTitlePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -586,7 +526,7 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/GridContainer"]
+[node name="VehicleOptionsMenu" type="OptionButton" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -604,41 +544,13 @@ popup/item_1/id = 1
 popup/item_2/text = "Van"
 popup/item_2/id = 2
 
-[node name="VehicleContent" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("12_3lp2p")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleContent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Van"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FatigueTitle" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="FatigueTitlePanel" type="Panel" parent="VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_moewq")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueTitle"]
+[node name="FatigueTitleLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueTitlePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -660,12 +572,12 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FatigueContent" type="Panel" parent="VBoxContainer/GridContainer"]
+[node name="FatigueContentPanel" type="Panel" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("12_3lp2p")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueContent"]
+[node name="FatigueContentLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueContentPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -687,17 +599,11 @@ autowrap_mode = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CarPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": ExtResource("12_nf3og")
 }
 autoplay = "Driving"
-
-[node name="TrolleyPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"StatusAnimations": ExtResource("12_nf3og")
-}
-autoplay = "StatusAnimations/TrolleyDriving"
 
 [node name="Close" type="Button" parent="."]
 layout_mode = 0
@@ -718,7 +624,7 @@ offset_top = 83.0
 offset_right = 261.0
 offset_bottom = 123.0
 
-[node name="Button" type="Button" parent="VBoxContainer2"]
+[node name="LocateButton" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
 theme = SubResource("Theme_q1uuc")
@@ -726,7 +632,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Locate"
 
-[node name="Button2" type="Button" parent="VBoxContainer2"]
+[node name="AssignLoopButton" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
 focus_mode = 0
 theme = SubResource("Theme_hkiqx")
@@ -739,7 +645,7 @@ toggle_mode = true
 text = "Assign
 Loop"
 
-[node name="Button" type="Button" parent="VBoxContainer2/Button2"]
+[node name="Button" type="Button" parent="VBoxContainer2/AssignLoopButton"]
 visible = false
 layout_mode = 0
 offset_left = 16.0

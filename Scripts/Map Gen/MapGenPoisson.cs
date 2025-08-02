@@ -78,9 +78,12 @@ public partial class MapGenPoisson : Node2D
             AddChild(newPoint);
 
             // Add visual representation for the point
-            var square = new ColorRect();
-            square.Size = new Vector2(20, 20);
-            square.Position = new Vector2(-10, -10); 
+            var square = new ColorRect()
+            {
+                Size = new Vector2(20, 20),
+                Position = new Vector2(-10, -10),
+                MouseFilter = Control.MouseFilterEnum.Ignore
+            };
             newPoint.AddChild(square);
 
             // Ensure first point is always a PostOffice, then use weighted random selection

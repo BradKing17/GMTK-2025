@@ -10,6 +10,7 @@ public partial class PointManager : Node
     private Points highlightedPoint = null;
     private Points selectedPoint = null;
 
+    private List<Points> currentRoute = new List<Points>();
     public void SetSelectedPoint(Points point) { selectedPoint = point; }
     public void SetHighlightedPoint(Points point) { highlightedPoint = point; }
 
@@ -43,9 +44,11 @@ public partial class PointManager : Node
         base._Input(@event);
         if (@event.IsActionPressed("Left MB"))
         {
-            if(highlightedPoint != null)
+            if(highlightedPoint != null) // If a node is hovered over
             {
-                if(selectedPoint == null)
+
+                //If there is no currently selected point
+                if(selectedPoint == null) 
                 {
                     foreach (Points neighbour in highlightedPoint.GetNeighbours())
                     {
@@ -55,6 +58,8 @@ public partial class PointManager : Node
                     selectedPoint = highlightedPoint;
                     GD.Print("SELECTED");
                 }
+
+                //if there is a selected point, remove the current selection, then add the new point as selected
                 else if(selectedPoint != null)
                 {
                     foreach (Points neighbour in selectedPoint.GetNeighbours())
@@ -63,13 +68,12 @@ public partial class PointManager : Node
                     }
                     selectedPoint.isSelected = false;
 
-
                     foreach (Points neighbour in highlightedPoint.GetNeighbours())
                     {
-                        highlightedPoint.isSelected = true;
-                        highlightedPoint.isSelected = true;
+                        
                         neighbour.GetChildOrNull<ColorRect>(1).Color = new Color(1f, 1f, 1f);
                     }
+                    highlightedPoint.isSelected = true;
                     selectedPoint = highlightedPoint;
                 }
             }

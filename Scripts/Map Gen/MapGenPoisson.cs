@@ -129,6 +129,7 @@ public partial class MapGenPoisson : Node2D
                     break;
 
                 case "GranniesHouse":
+
                     // Add GranniesHouse-specific behavior here
                     break;
 

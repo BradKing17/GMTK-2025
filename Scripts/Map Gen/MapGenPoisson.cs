@@ -73,8 +73,8 @@ public partial class MapGenPoisson : Node2D
         foreach (var vector in newVectors)
         {
             Points newPoint = PackedPoint.Instantiate<Points>();
-            newPoint.Name = nodeDict["Prefixes"][nameRNG.RandiRange(0, nodeDict["Prefixes"].Length-1)] + " " + nodeDict["Suffixes"][nameRNG.RandiRange(0, nodeDict["Suffixes"].Length-1)];
-
+            newPoint.Name = Utitily.RandomName.returnDictNames(nodeDict, ["Prefixes", "Suffixes"]);
+           
             AddChild(newPoint);
 
             // Add visual representation for the point

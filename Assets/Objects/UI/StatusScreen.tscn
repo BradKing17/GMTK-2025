@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dm467cdfjiame"]
+[gd_scene load_steps=37 format=3 uid="uid://dm467cdfjiame"]
 
 [ext_resource type="Script" uid="uid://cbfmud06ab1le" path="res://Scripts/UI/Status/PostieStatus.cs" id="1_i2swm"]
 [ext_resource type="Texture2D" uid="uid://dp7762qgrsix6" path="res://Assets/Images/Status/Trolley.png" id="2_fquml"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://xkijpgtru6ta" path="res://Assets/Images/Status/Sad_1.png" id="7_hkiqx"]
 [ext_resource type="Texture2D" uid="uid://b0aw72cgiu67e" path="res://Assets/Images/Status/Neutral_0.png" id="8_14wwy"]
 [ext_resource type="Texture2D" uid="uid://bhj7ngimcnofy" path="res://Assets/Images/Status/Neutral_1.png" id="9_dn4g7"]
+[ext_resource type="Texture2D" uid="uid://bnlhyc0h02rr0" path="res://Assets/Images/Status/Boot.png" id="9_hkiqx"]
 [ext_resource type="Texture2D" uid="uid://b0p75i2134yp6" path="res://Assets/Images/Status/Happy_0.png" id="10_1jlln"]
 [ext_resource type="Texture2D" uid="uid://bc0of6ueywujk" path="res://Assets/Images/Status/Happy_1.png" id="11_q1uuc"]
 [ext_resource type="StyleBox" uid="uid://wp6y83q1uw6a" path="res://Assets/Objects/UI/StatusScreen.tres" id="12_3lp2p"]
@@ -318,6 +319,17 @@ texture = ExtResource("5_8fuhl")
 [node name="VanWheel2" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Van"]
 position = Vector2(-37, 47)
 texture = ExtResource("5_8fuhl")
+
+[node name="Walking" type="Node2D" parent="VBoxContainer/PanelContainer/Node2D"]
+
+[node name="WalkingBoot" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Walking"]
+position = Vector2(-20, -1)
+texture = ExtResource("9_hkiqx")
+
+[node name="WalkingBoot2" type="Sprite2D" parent="VBoxContainer/PanelContainer/Node2D/Walking"]
+position = Vector2(21, -2)
+texture = ExtResource("9_hkiqx")
+flip_h = true
 
 [node name="Postie" type="Node2D" parent="VBoxContainer/PanelContainer/Node2D"]
 position = Vector2(1.5, -38.5)

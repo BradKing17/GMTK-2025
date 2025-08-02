@@ -151,7 +151,7 @@ public partial class MapGenPoisson : Node2D
 
             pointsFilled.Add(newPoint);
             pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
-            GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
+      //      GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
         }
@@ -162,22 +162,52 @@ public partial class MapGenPoisson : Node2D
 
     void GenerateStreets(List<Points> pointsPassed)
     {
-        GD.Print("Generating Streets with: " + pointsPassed.Count + " Points");
-        foreach (var point in pointsPassed)
+        List<Points> deadEnds = new List<Points>();
+        foreach (Points point in pointsPassed)
         {
-
             foreach (Points newConnection in pointsPassed)
             {
-                if (point.GetPosition().DistanceTo(newConnection.GetPosition()) < maxConnectionDistance && point != newConnection)
+                if (point.GetPosition().DistanceTo(newConnection.GetPosition()) < maxConnectionDistance && point != newConnection && !point.GetNeighbours().Contains(newConnection))
                 {
-                    Line2D newLine = new Line2D();
-                    newLine.AddPoint(point.GetPosition());
-                    newLine.AddPoint(newConnection.GetPosition());
-                    newLine.Width = 2;
-                    newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
-                    AddChild(newLine);
+                    point.AddNeighbour(newConnection);
+                    newConnection.AddNeighbour(point);
                 }
             }
         }
+        foreach(Points point in pointsPassed)
+        {
+            if (point.GetNeighbours().Count < 2)
+            {
+                deadEnds.Add(point);
+            }
+        }
+        foreach(Points deadPoint in deadEnds)
+        {
+            foreach(Points point in pointsPassed)
+            {
+                if (point.GetNeighbours().Contains(deadPoint))
+                {
+                    point.RemoveNeighbour(deadPoint); 
+                }
+            }
+            pointManager.DeregisterPoint(deadPoint);
+            pointsPassed.Remove(deadPoint);
+            deadPoint.QueueFree();
+        }
+        foreach (Points point in pointsPassed)
+        {
+            GD.Print("Num of connections: " + point.GetNeighbours().Count);
+
+            for (int i = 0; i < point.GetNeighbours().Count; i++)
+            {
+                    Line2D newLine = new Line2D();
+                    newLine.AddPoint(point.GetPosition());
+                    newLine.AddPoint(point.GetNeighbours()[i].GetPosition());
+                    newLine.Width = 2;
+                    newLine.DefaultColor = new Color(0.8f, 0.8f, 0.8f);
+                    AddChild(newLine);
+             }
+        }
+
     }
 }

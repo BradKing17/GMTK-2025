@@ -1,10 +1,12 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class Points : Node2D
 {
     public int GetNumConnections() { return numOfConnections; }
+
     public int postWaitingForDelivery = 0;
     public bool maxPostReached = false;
     public float radius = 20;
@@ -12,11 +14,13 @@ public partial class Points : Node2D
     private Tween tween;
     private Vector2 position;
     private int numOfConnections;
+    private List<Points> neighbourPoints;    
     private string pointType = "Base";
     public string GetPointType() { return pointType; }
     public void SetPointType(string type) { pointType = type; }
     public override void _Ready()
     {
+        neighbourPoints = new List<Points>();
         var area = new Area2D();
         var collider = new CollisionShape2D();
         AddChild(area);
@@ -48,4 +52,9 @@ public partial class Points : Node2D
 
     public new Vector2 GetPosition() { return position; }
     public new void SetPosition(Vector2 newPos) { position = newPos; }
+
+    public List<Points> GetNeighbours() { return neighbourPoints; }
+    public void AddNeighbour(Points newPoint) { neighbourPoints.Add(newPoint); }
+
+    public void RemoveNeighbour(Points newPoint) { neighbourPoints.Remove(newPoint); }
 }

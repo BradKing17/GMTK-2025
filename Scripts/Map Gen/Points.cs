@@ -42,19 +42,21 @@ public partial class Points : Node2D
 
     private void HandleMouseEntered()
     {
-        manager.SetHighlightedPoint(this);
+
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(GetChild<Area2D>(0).GetChild<CollisionShape2D>(0).Shape, "radius", radius + 20, 0.25f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
+        manager.SetHighlightedPoint(this);
     }
     private void HandleMouseExited()
     {
-        manager.SetHighlightedPoint(null);
+
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(GetChild<Area2D>(0).GetChild<CollisionShape2D>(0).Shape, "radius", radius, 0.25f)
 					.SetTrans(Tween.TransitionType.Back)
 					.SetEase(Tween.EaseType.In);
+        manager.SetHighlightedPoint(null);
     }
 
 

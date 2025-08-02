@@ -12,7 +12,6 @@ script = ExtResource("1_tdi54")
 pointManager = NodePath("Map/PointManager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="StatusScreen" parent="CanvasLayer" instance=ExtResource("4_raj4r")]
 offset_left = 2.0

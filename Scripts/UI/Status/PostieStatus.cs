@@ -11,7 +11,7 @@ public partial class PostieStatus : Control
     [Export] public Button closeButton;
     Vector2 mouseNodeDiff = new();
 
-    [Export] private Sprite2D[] vehicleSprites = [];
+    [Export] private Node2D[] vehicleSprites = [];
     [Export] private AnimationPlayer vehicleAnimator;
 
     private bool grabbedWindow = false;
@@ -20,7 +20,6 @@ public partial class PostieStatus : Control
         base._Ready();
         VehicleOptionsButton.ItemSelected += updateVehicle;
         closeButton.Pressed += closeWindow;
-
         NameLabel.ButtonDown += AttachWindow;
     }
 
@@ -34,7 +33,7 @@ public partial class PostieStatus : Control
                 vehicleSprites[0].Visible = true;
                 vehicleSprites[1].Visible = false;
                 vehicleAnimator.Play("Driving");
-                // vehicleSprites[2].Visible = false; no walking sprite yet
+                vehicleSprites[2].Visible = false;
                 return;
             }
             case Postie.Vehicle.Transport.Trolley:
@@ -43,14 +42,15 @@ public partial class PostieStatus : Control
                 vehicleSprites[1].Visible = true;
                 vehicleAnimator.Play("TrolleyDriving");
 
-                // vehicleSprites[2].Visible = false; no walking sprite yet
+                vehicleSprites[2].Visible = false;
                 return;
             }
             case Postie.Vehicle.Transport.Walking:
             {
                 vehicleSprites[0].Visible = false;
                 vehicleSprites[1].Visible = false;
-                // vehicleSprites[2].Visible = true; no walking sprite yet
+                vehicleSprites[2].Visible = true;
+                vehicleAnimator.Play("Walking");
                 return;
             }
         }

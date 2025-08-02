@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Drawing;
 
 public partial class PointManager : Node
 {
@@ -52,7 +53,7 @@ public partial class PointManager : Node
                 {
                     foreach (Points neighbour in highlightedPoint.GetNeighbours())
                     {
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Color(1f, 1f, 1f);
+                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
                     }
                     highlightedPoint.isSelected = true;
                     selectedPoint = highlightedPoint;
@@ -62,21 +63,49 @@ public partial class PointManager : Node
                 //if there is a selected point, remove the current selection, then add the new point as selected
                 else if(selectedPoint != null)
                 {
+                    if(selectedPoint.GetNeighbours().Contains(highlightedPoint))
+                    {
+                        Line2D newLine = new Line2D();
+                        newLine.AddPoint(selectedPoint.GetPosition());
+                        newLine.AddPoint(highlightedPoint.GetPosition());
+                        newLine.Width = 2;
+                        newLine.DefaultColor = new Godot.Color(1f, 0f, 0f);
+                        AddChild(newLine);
+                    }
                     foreach (Points neighbour in selectedPoint.GetNeighbours())
                     {  
                         neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
                     }
+
+                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
                     selectedPoint.isSelected = false;
 
                     foreach (Points neighbour in highlightedPoint.GetNeighbours())
                     {
                         
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Color(1f, 1f, 1f);
+                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
                     }
                     highlightedPoint.isSelected = true;
                     selectedPoint = highlightedPoint;
+
+                }
+                selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                currentRoute.Add(selectedPoint);
+            }
+            else
+            {
+                if (selectedPoint != null)
+                {
+                    foreach (Points neighbour in selectedPoint.GetNeighbours())
+                    {
+                        neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
+                    }
+                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
+                    selectedPoint.isSelected = false;
                 }
             }
+            
+
         }
     }
     public override void _Process(double delta)

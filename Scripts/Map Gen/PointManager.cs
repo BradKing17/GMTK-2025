@@ -95,6 +95,8 @@ public partial class PointManager : Node
 
                 if (currentRoute.Contains(highlightedPoint))
                 {
+                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                    currentRoute.Add(selectedPoint);
                     GD.Print("Loop complete");
                     EndLoop(currentRoute);
                 }

@@ -9,6 +9,8 @@ public partial class House : Points
 
     private Timer postTimer;
     private Label timerLabel;
+    private bool timerStarted = false;
+    
     public override void _Ready()
     {
         base._Ready();
@@ -27,6 +29,15 @@ public partial class House : Points
         AddChild(timerLabel);
         InitializeTimer();
     }
+
+    public override void _Notification(int what)
+    {
+        base._Notification(what);
+        if (what == NotificationVisibilityChanged && IsVisibleInTree() && !timerStarted)
+        {
+            StartTimer();
+        }
+    }
     public void InitializeTimer()
     {
         postTimer = new Timer();
@@ -35,8 +46,16 @@ public partial class House : Points
         postTimer.Timeout += OnPostTimerTimeout;
         
         AddChild(postTimer);
-        postTimer.Start();
         UpdateLabel();
+    }
+
+    public void StartTimer()
+    {
+        if (postTimer != null && !timerStarted)
+        {
+            postTimer.Start();
+            timerStarted = true;
+        }
     }
 
     private void OnPostTimerTimeout()

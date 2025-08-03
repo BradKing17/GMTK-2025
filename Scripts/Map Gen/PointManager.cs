@@ -46,81 +46,84 @@ public partial class PointManager : Node
     public override void _UnhandledInput(InputEvent @event)
     {
         base._Input(@event);
-        if (@event.IsActionPressed("Left MB"))
+        if (globals.selectedPostie != null)
         {
-            if(highlightedPoint != null) // If a node is hovered over
+            if (@event.IsActionPressed("Left MB"))
             {
-
-                //If there is no currently selected point
-                if(selectedPoint == null) 
+                if (highlightedPoint != null) // If a node is hovered over
                 {
-                    foreach (Points neighbour in highlightedPoint.GetNeighbours())
+
+                    //If there is no currently selected point
+                    if (selectedPoint == null)
                     {
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        foreach (Points neighbour in highlightedPoint.GetNeighbours())
+                        {
+                            neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        }
+                        highlightedPoint.isSelected = true;
+                        selectedPoint = highlightedPoint;
+                        GD.Print("SELECTED");
                     }
-                    highlightedPoint.isSelected = true;
-                    selectedPoint = highlightedPoint;
-                    GD.Print("SELECTED");
-                }
 
-                //if there is a selected point, remove the current selection, then add the new point as selected
-                else if(selectedPoint != null)
-                {
-                    if(selectedPoint.GetNeighbours().Contains(highlightedPoint))
+                    //if there is a selected point, remove the current selection, then add the new point as selected
+                    else if (selectedPoint != null)
                     {
-                        Line2D newLine = new Line2D();
-                        newLine.AddPoint(selectedPoint.GetPosition());
-                        newLine.AddPoint(highlightedPoint.GetPosition());
-                        newLine.Width = 2;
-                        newLine.DefaultColor = new Godot.Color(1f, 0f, 0f);
-                        AddChild(newLine);
-                    }
-                    foreach (Points neighbour in selectedPoint.GetNeighbours())
-                    {  
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
+                        if (selectedPoint.GetNeighbours().Contains(highlightedPoint))
+                        {
+                            Line2D newLine = new Line2D();
+                            newLine.AddPoint(selectedPoint.GetPosition());
+                            newLine.AddPoint(highlightedPoint.GetPosition());
+                            newLine.Width = 2;
+                            newLine.DefaultColor = new Godot.Color(1f, 0f, 0f);
+                            AddChild(newLine);
+                        }
+                        foreach (Points neighbour in selectedPoint.GetNeighbours())
+                        {
+                            neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
+                        }
+
+                        selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
+                        selectedPoint.isSelected = false;
+
+                        foreach (Points neighbour in highlightedPoint.GetNeighbours())
+                        {
+
+                            neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        }
+                        highlightedPoint.isSelected = true;
+                        selectedPoint = highlightedPoint;
+
                     }
 
-                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
-                    selectedPoint.isSelected = false;
-
-                    foreach (Points neighbour in highlightedPoint.GetNeighbours())
+                    if (currentRoute.Contains(highlightedPoint))
                     {
-                        
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        currentRoute.Add(selectedPoint);
+                        GD.Print("Loop complete");
+                        EndLoop(currentRoute);
                     }
-                    highlightedPoint.isSelected = true;
-                    selectedPoint = highlightedPoint;
-
-                }
-
-                if (currentRoute.Contains(highlightedPoint))
-                {
-                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
-                    currentRoute.Add(selectedPoint);
-                    GD.Print("Loop complete");
-                    EndLoop(currentRoute);
+                    else
+                    {
+                        selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                        currentRoute.Add(selectedPoint);
+                        GD.Print("Added" + selectedPoint);
+                    }
                 }
                 else
                 {
-                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
-                    currentRoute.Add(selectedPoint);
-                    GD.Print("Added" + selectedPoint);
-                }
-            }
-            else
-            {
-                if (selectedPoint != null)
-                {
-                    foreach (Points neighbour in selectedPoint.GetNeighbours())
+                    if (selectedPoint != null)
                     {
-                        neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
+                        foreach (Points neighbour in selectedPoint.GetNeighbours())
+                        {
+                            neighbour.GetChildOrNull<ColorRect>(1).Color = neighbour.mainColor;
+                        }
+                        selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
+                        selectedPoint.isSelected = false;
                     }
-                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = selectedPoint.mainColor;
-                    selectedPoint.isSelected = false;
                 }
-            }
-            
 
+
+            }
         }
     }
 

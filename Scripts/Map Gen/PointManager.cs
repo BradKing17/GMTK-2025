@@ -24,6 +24,7 @@ public partial class PointManager : Node
         gameOverTimer.WaitTime = 1.0f;
         gameOverTimer.OneShot = false;
         gameOverTimer.Timeout += OnGameOverTimerTimeout;
+        
         AddChild(gameOverTimer);
     }
 

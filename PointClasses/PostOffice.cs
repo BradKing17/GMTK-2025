@@ -7,6 +7,7 @@ public partial class PostOffice : Points
     private bool mouseInside;
     private PackedScene PackedDepotScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/DepotScreen.tscn");
     public DepotUI DepotScreen;
+
     public override void _Ready()
     {
         radius = 50;
@@ -17,6 +18,7 @@ public partial class PostOffice : Points
         globals.postOffice = this;
 
         mainColor = debugIcon.Color = Colors.Yellow;
+        SetSprite("res://Assets/Images/MapSprites/postOffice.png");
     }
 
     protected override void HandleMouseEntered()
@@ -47,4 +49,5 @@ public partial class PostOffice : Points
         GD.Print("canvas layer: ", globals.canvasLayer);
         globals.canvasLayer.AddChild(DepotScreen);
     }
+
 }

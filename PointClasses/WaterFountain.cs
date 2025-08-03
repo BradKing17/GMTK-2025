@@ -7,5 +7,6 @@ public partial class WaterFountain : Points
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Blue;
+        SetSprite("res://Assets/Images/MapSprites/Fountain.png");
     }
 }

@@ -4,7 +4,6 @@ using System.Drawing;
 
 public partial class PointManager : Node
 {
-    [Export] public DepotManager depotManager;
     private List<Points> points = [];
     private Timer gameOverTimer;
     private float gameOverTimeLeft = 60f;
@@ -16,8 +15,11 @@ public partial class PointManager : Node
     public void SetSelectedPoint(Points point) { selectedPoint = point; }
     public void SetHighlightedPoint(Points point) { highlightedPoint = point; }
 
+    public Globals globals;
+
     public override void _Ready()
     {
+        globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
         gameOverTimer = new Timer();
         gameOverTimer.WaitTime = 1.0f;
         gameOverTimer.OneShot = false;
@@ -122,8 +124,7 @@ public partial class PointManager : Node
 
     public void EndLoop(List<Points> newLoop)
     {
-        GD.Print(depotManager);
-        depotManager.StartLoop(newLoop);
+        globals.depotManager.StartLoop(newLoop);
     }
     public override void _Process(double delta)
     {

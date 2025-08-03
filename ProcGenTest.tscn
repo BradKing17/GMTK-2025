@@ -22,7 +22,7 @@ poisson_radius = 30.0
 script = ExtResource("2_00hob")
 
 [node name="Polygon2D" type="Polygon2D" parent="Map"]
-color = Color(0, 0, 0, 1)
+color = Color(1.04684e-06, 0.409008, 9.62615e-08, 1)
 polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 406, 236, 500, 240, 570, 227, 634, 224, 768, 223, 823, 279, 862, 383, 823, 446, 697, 461, 597, 464, 502, 465, 421, 473, 348, 554, 241, 586, 171, 511, 147, 412, 235, 346)
 
 [node name="Camera2D" type="Camera2D" parent="."]

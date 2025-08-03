@@ -59,7 +59,10 @@ public partial class Points : Node2D
         manager.SetHighlightedPoint(null);
     }
 
+    public virtual void HitPoint(Postie postie)
+    {
 
+    }
 
     public new Vector2 GetPosition() { return position; }
     public new void SetPosition(Vector2 newPos) { position = newPos; }

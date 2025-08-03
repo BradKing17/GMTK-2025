@@ -224,9 +224,9 @@ public partial class Postie : Node2D
         status = status.SetStatus(Status.Feeling.Normal);
     }
 
-    public void PointHit(House house)
+    public void PointHit(Points currentPoint)
     {
-        house.DecreasePost(10);
+        currentPoint.HitPoint(this);
     }
 
     private void HandleMouseEntered()

@@ -7,6 +7,7 @@ public partial class GranniesHouse : Points
     {
         base._Ready();
         debugIcon.Color = Colors.LightBlue;
+        SetSprite("res://Assets/Images/MapSprites/GranniesHouse.png");
     }
     public override void HitPoint(Postie postie)
     {

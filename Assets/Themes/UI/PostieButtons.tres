@@ -1,4 +1,7 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://oi21iduuwlt3"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://oi21iduuwlt3"]
+
+[ext_resource type="StyleBox" uid="uid://b2mwn55nsl377" path="res://Assets/Objects/UI/postieButtonHover.tres" id="1_0hwl4"]
+[ext_resource type="StyleBox" uid="uid://b5hac73qlrym2" path="res://Assets/Objects/UI/PostieButtonNormal.tres" id="2_4gbkq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flcmw"]
 bg_color = Color(0.854474, 0.959883, 1, 1)
@@ -49,3 +52,7 @@ anti_aliasing = false
 Button/styles/hover = SubResource("StyleBoxFlat_flcmw")
 Button/styles/normal = SubResource("StyleBoxFlat_kwy53")
 Button/styles/pressed = SubResource("StyleBoxFlat_ii2b7")
+MenuButton/styles/hover = ExtResource("1_0hwl4")
+MenuButton/styles/normal = ExtResource("2_4gbkq")
+PopupMenu/styles/hover = ExtResource("1_0hwl4")
+PopupMenu/styles/panel = ExtResource("2_4gbkq")

@@ -231,6 +231,7 @@ offset_left = 880.0
 offset_top = 94.0
 offset_right = 880.0
 offset_bottom = 94.0
+mouse_force_pass_scroll_events = false
 script = ExtResource("1_i2swm")
 NameLabel = NodePath("VBoxContainer/NameButton")
 StatusLabel = NodePath("VBoxContainer/GridContainer/StatusContentPanel/StatusContentLabel")

@@ -229,11 +229,11 @@ public partial class Postie : Node2D
         area.AddChild(collider);
         area.MouseEntered += HandleMouseEntered;
         area.MouseExited += HandleMouseExited;
-        collider.DebugColor = Godot.Colors.HotPink;
+        collider.DebugColor = Godot.Colors.Red;
         collider.Shape = new CircleShape2D()
         {
             Radius = clickableRadius,
-            CustomSolverBias = 0
+            CustomSolverBias = 0,
         };
         vehicle = Vehicle.SetVehicle(Vehicle.Transport.Walking);
         status = status.SetStatus(Status.Feeling.Normal);
@@ -262,12 +262,15 @@ public partial class Postie : Node2D
     }
     public override void _Input(InputEvent @event)
     {
-        base._UnhandledInput(@event);
+        base._Input(@event);
         if(@event.IsActionPressed("Left MB") && mouseInside)
         {
             GD.Print("clicked on Postie: " + Name);
             GD.Print("Vehicle: " + vehicle.transport, ", spd mult: ", vehicle.speedMultiplier, ", ftg mult:", vehicle.fatigueMultiplier);
             GD.Print("Status: ", "feeling: ", status.feeling, ", active: ", status.Active, ", post: ", status.currentPost, ", ftg%: ", status.fatiguePercentage, ", spd: ", status.speed, ", lvl: ", status.level);
+                    GD.Print("SP before: ", globals.selectedPostie);
+            globals.selectedPostie = this;
+                    GD.Print("SP after: ", globals.selectedPostie);
             createStatusScreen();
         }
     }
@@ -286,6 +289,7 @@ public partial class Postie : Node2D
 
     public void AssignedLoop()
     {
+        GD.Print("ARray top SP: ", globals.selectedPostie);
         path = new Path2D();
         AddChild(path);
         path.Curve = new Curve2D();
@@ -294,10 +298,17 @@ public partial class Postie : Node2D
             GD.Print(point.GetPosition());
             path.Curve.AddPoint(point.GetPosition());
         }
+        foreach (var child in pathFollow.GetChildren())
+        {
+            if (child is ColorRect) { return; }
+            child.QueueFree();
+        }
+        pathFollow = new();
         path.AddChild(pathFollow);
         isLooping = true;
         pathFollow.Loop = true;
         pathFollow.AddChild(debugIcon);
+                GD.Print("ARray bot SP: ", globals.selectedPostie);
     }
 
     public override void _Process(double delta)

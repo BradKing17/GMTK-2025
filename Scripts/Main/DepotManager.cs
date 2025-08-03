@@ -8,7 +8,6 @@ public partial class DepotManager : Node2D
     private int NumOfWagons = 0;
     private int NumOfVans = 0;
 
-    [Export] public Postie selectedPostie = null;
 
     public Points highlightedPoint = null;
 
@@ -18,8 +17,8 @@ public partial class DepotManager : Node2D
     }
     public void StartLoop(List<Points> newLoop)
     {
-        // selectedPostie.loop = newLoop; COMMENTED BECAUSE IDK HOW TO INTEGRATE THIS
-        // selectedPostie.AssignedLoop();
+        globals.selectedPostie.loop = newLoop; //COMMENTED BECAUSE IDK HOW TO INTEGRATE THIS
+        globals.selectedPostie.AssignedLoop();
     }
 
     public void BirthPostie()

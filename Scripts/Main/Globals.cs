@@ -10,8 +10,8 @@ public partial class Globals : Node
     [Export] public Canvas canvasLayer;
     public List<Postie> totalPosties = new();
     [Export] public Postie selectedPostie = null;
-
     [Export] public Node2D MapLayer;
     [Export] public Node2D PointsLayer;
 
+    public Node2D objToClick;
 }

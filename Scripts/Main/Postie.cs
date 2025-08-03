@@ -210,13 +210,14 @@ public partial class Postie : Node2D
     [Export] CanvasLayer canvasLayer;
     public Globals globals;
     public ColorRect debugIcon;
+
     public override void _Ready()
     {
         globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
         debugIcon = new ColorRect()
         {
             Size = new Vector2(20, 20),
-            Position = new Vector2(0, 0),
+            Position = new Vector2(-10, -10),
             MouseFilter = Control.MouseFilterEnum.Ignore,
             Color = Colors.Pink // debugpink
         };
@@ -304,8 +305,7 @@ public partial class Postie : Node2D
     {
         if(isLooping == true)
         {
-            pathFollow.Progress += (float)(delta * 10.0);
-
+            pathFollow.Progress += (float)(delta * 10.0 * status.speed);
         }
         base._Process(delta);
     }

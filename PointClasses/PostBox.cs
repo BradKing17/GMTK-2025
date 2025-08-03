@@ -3,9 +3,11 @@ using System;
 
 public partial class PostBox : Points
 {
-     public override void _Ready()
+    public override void _Ready()
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Red;
+        SetSprite("res://Assets/Images/MapSprites/PostBox.png");
+
     }
 }

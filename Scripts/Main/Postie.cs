@@ -6,6 +6,9 @@ using Godot;
 public partial class Postie : Node2D
 {
     public List<Points> loop = new List<Points>();
+    public bool isLooping = false;
+    public Path2D path = new Path2D();
+    public PathFollow2D pathFollow = new PathFollow2D();
     public class Vehicle
     {
         // get enum name by toString() after entry;
@@ -14,6 +17,7 @@ public partial class Postie : Node2D
         public float speedMultiplier;
         public float fatigueMultiplier;
         public int AdditionalMaxPostage;
+
 
         public static Vehicle SetVehicle(Vehicle.Transport transport)
         {
@@ -205,9 +209,18 @@ public partial class Postie : Node2D
     public PostieStatus StatusScreen;
     [Export] CanvasLayer canvasLayer;
     public Globals globals;
+    public ColorRect debugIcon;
     public override void _Ready()
     {
         globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
+        debugIcon = new ColorRect()
+        {
+            Size = new Vector2(20, 20),
+            Position = new Vector2(0, 0),
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            Color = Colors.Pink // debugpink
+        };
+
         canvasLayer = globals.canvasLayer;
         name = Name = Utitily.RandomName.returnJsonNames("res://Scripts/Main/Jsons/PostieNames.json", ["Forenames", "Surnames"]);
         area = new Area2D();
@@ -271,20 +284,27 @@ public partial class Postie : Node2D
         canvasLayer.AddChild(StatusScreen);
     }
 
+    public void AssignedLoop()
+    {
+        path = new Path2D();
+        AddChild(path);
+        path.Curve = new Curve2D();
+        foreach (Points point in loop)
+        {
+            GD.Print(point.GetPosition());
+            path.Curve.AddPoint(point.GetPosition());
+        }
+        path.AddChild(pathFollow);
+        isLooping = true;
+        pathFollow.Loop = true;
+        pathFollow.AddChild(debugIcon);
+    }
+
     public override void _Process(double delta)
     {
-        if(loop != null)
+        if(isLooping == true)
         {
-            Path2D newPath = new Path2D();
-            foreach (Points point in loop)
-            {
-                newPath.Curve.AddPoint(point.GetPosition());
-            }
-
-            PathFollow2D newPathfollow = new PathFollow2D();
-            newPath.AddChild(newPathfollow);
-            newPathfollow.Loop = true;
-            newPathfollow.AddChild(new ColorRect());
+            pathFollow.Progress += (float)(delta * 10.0);
 
         }
         base._Process(delta);

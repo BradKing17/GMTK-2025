@@ -14,30 +14,22 @@ public partial class MapGenPoisson : Node2D
     [Export] private float pointRadius = 20;
 
     //Point Weighting Variables
-    [Export] private Single house = 40.0f; // Most common
-    [Export] private Single postBox = 15.0f; // Common
-    [Export] private Single parkBench = 12.0f; // Fairly common
-    [Export] private Single waterFountain = 10.0f; // Moderate
-    [Export] private Single postOffice = 8.0f; // Less common
-    [Export] private Single postDepot = 5.0f; // Rare
-    [Export] private Single granniesHouse = 2.0f; // Very rare
-
+    [Export] private float house = 40.0f; // Most common
+    [Export] private float postBox = 15.0f; // Common
+    [Export] private float parkBench = 12.0f; // Fairly common
+    [Export] private float waterFountain = 10.0f; // Moderate
+    [Export] private float postOffice = 8.0f; // Less common
+    [Export] private float postDepot = 5.0f; // Rare
+    [Export] private float granniesHouse = 2.0f; // Very rare
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
-
     private PointManager pointManager;
     
-
     public override void _Ready()
     {
         pointManager = new PointManager();
         AddChild(pointManager);
         List<Points> points = new(GeneratePoints());
 
-        GD.Print(points);
-        foreach(Points point in points)
-        {
-            GD.Print(point.Name);
-        }
         GenerateStreets(points);
     }
 

@@ -44,8 +44,11 @@ public partial class MapGenPoisson : Node2D
         nodeGenerationTimer.Timeout += OnNodeRevealTimeout;
         AddChild(nodeGenerationTimer);
         
-        // Reveal the first node (Post Office) immediately
-        RevealNextNode();
+        // Reveal the first 4 nodes immediately
+        for (int i = 0; i < 4 && i < allPoints.Count; i++)
+        {
+            RevealNextNode();
+        }
         
         // Start the timer for subsequent nodes
         if (visiblePoints.Count < allPoints.Count)

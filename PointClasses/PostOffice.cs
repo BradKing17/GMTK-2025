@@ -3,7 +3,6 @@ using System;
 
 public partial class PostOffice : Points
 {
-    private Globals globals;
     private bool mouseInside;
     private PackedScene PackedDepotScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/DepotScreen.tscn");
     public DepotUI DepotScreen;
@@ -14,7 +13,6 @@ public partial class PostOffice : Points
         base._Ready();
         collider.DebugColor = Godot.Colors.PaleVioletRed;
 
-        globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
         globals.postOffice = this;
 
         mainColor = debugIcon.Color = Colors.Yellow;
@@ -24,6 +22,7 @@ public partial class PostOffice : Points
     protected override void HandleMouseEntered()
     {
         base.HandleMouseEntered();
+        
         GD.Print("mouse inside: ", this.Name);
         mouseInside = true;
     }
@@ -32,7 +31,7 @@ public partial class PostOffice : Points
         base.HandleMouseExited();
         mouseInside = false;
     }
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledInput(@event);
         if (@event.IsActionPressed("Left MB") && mouseInside)

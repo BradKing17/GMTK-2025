@@ -237,6 +237,9 @@ public partial class Postie : Node2D
         };
         vehicle = Vehicle.SetVehicle(Vehicle.Transport.Walking);
         status = status.SetStatus(Status.Feeling.Normal);
+        var backplate = new Button();
+
+        AddChild(backplate);
     }
 
     public void PointHit(Points currentPoint)
@@ -246,6 +249,7 @@ public partial class Postie : Node2D
 
     private void HandleMouseEntered()
     {
+        globals.objToClick = this;
         mouseInside = true;
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(area.GetChild<CollisionShape2D>(0).Shape, "radius", clickableRadius + 20, 0.25f)
@@ -254,13 +258,14 @@ public partial class Postie : Node2D
     }
     private void HandleMouseExited()
     {
+        globals.objToClick = null;
         mouseInside = false;
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(area.GetChild<CollisionShape2D>(0).Shape, "radius", clickableRadius, 0.25f)
 					.SetTrans(Tween.TransitionType.Back)
 					.SetEase(Tween.EaseType.In);
     }
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         base._Input(@event);
         if(@event.IsActionPressed("Left MB") && mouseInside)

@@ -127,6 +127,7 @@ public partial class PointManager : Node
     public void EndLoop(List<Points> newLoop)
     {
         globals.depotManager.StartLoop(newLoop);
+        currentRoute.Clear();
     }
     public override void _Process(double delta)
     {

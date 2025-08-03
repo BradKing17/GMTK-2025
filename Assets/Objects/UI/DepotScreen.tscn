@@ -1,0 +1,262 @@
+[gd_scene load_steps=13 format=3 uid="uid://dolu40oh80kva"]
+
+[ext_resource type="StyleBox" uid="uid://b2mwn55nsl377" path="res://Assets/Objects/UI/postieButtonHover.tres" id="1_bb06l"]
+[ext_resource type="Script" uid="uid://vinard2r4x2s" path="res://Scripts/UI/Depot/DepotUI.cs" id="1_lwt58"]
+[ext_resource type="StyleBox" uid="uid://b5hac73qlrym2" path="res://Assets/Objects/UI/PostieButtonNormal.tres" id="2_lwt58"]
+[ext_resource type="StyleBox" uid="uid://181datjkj6tx" path="res://Assets/Objects/UI/PostieButtonPressed.tres" id="3_foo5d"]
+[ext_resource type="StyleBox" uid="uid://bhjt64ejqtqhb" path="res://Assets/Themes/UI/Title.tres" id="4_vbqs0"]
+[ext_resource type="StyleBox" uid="uid://c3rrixp18kv2m" path="res://Assets/Themes/UI/Display.tres" id="5_g4381"]
+[ext_resource type="Theme" uid="uid://b0jsdx3qi35st" path="res://Assets/Themes/UI/DepotButtons.tres" id="6_4eo7i"]
+[ext_resource type="Theme" uid="uid://1qjc2txjpmb1" path="res://Assets/Objects/UI/DepoActivePostiesDropdown.tres" id="7_qxnlq"]
+[ext_resource type="Theme" uid="uid://oi21iduuwlt3" path="res://Assets/Themes/UI/PostieButtons.tres" id="8_2736h"]
+
+[sub_resource type="Theme" id="Theme_t5t8l"]
+Button/styles/hover = ExtResource("1_bb06l")
+Button/styles/normal = ExtResource("2_lwt58")
+Button/styles/pressed = ExtResource("3_foo5d")
+
+[sub_resource type="Theme" id="Theme_ibmjd"]
+
+[sub_resource type="Theme" id="Theme_ii2b7"]
+
+[node name="DepotScreen" type="Control" node_paths=PackedStringArray("NameLabel", "closeButton", "plusPosties", "minusPosties", "postieTotal")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 212.0
+offset_right = -1132.0
+offset_bottom = -436.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lwt58")
+NameLabel = NodePath("VBoxContainer/NameButton")
+closeButton = NodePath("Close")
+plusPosties = NodePath("VBoxContainer/HSplitContainer2/HSplitContainer2/Buy")
+minusPosties = NodePath("VBoxContainer/HSplitContainer2/HSplitContainer2/Sell")
+postieTotal = NodePath("VBoxContainer/HSplitContainer2/HSplitContainer/PostieNumber/Contents")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(285, 484)
+layout_mode = 1
+offset_right = 285.0
+offset_bottom = 484.0
+
+[node name="NameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_t5t8l")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+action_mode = 0
+text = "Depot"
+
+[node name="StatusTitle" type="Panel" parent="VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(90, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_vbqs0")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/StatusTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Depo"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(170, 190)
+layout_mode = 2
+theme = SubResource("Theme_ibmjd")
+theme_override_styles/panel = ExtResource("5_g4381")
+
+[node name="Node2D" type="Node2D" parent="VBoxContainer/PanelContainer"]
+visible = false
+position = Vector2(96, 96)
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+split_offset = 185
+dragging_enabled = false
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/HSplitContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+split_offset = 25
+dragging_enabled = false
+drag_area_highlight_in_editor = true
+
+[node name="PostieTitle" type="Panel" parent="VBoxContainer/HSplitContainer2/HSplitContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_vbqs0")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/HSplitContainer2/HSplitContainer/PostieTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.905
+offset_top = -20.58
+offset_right = 44.905
+offset_bottom = 20.58
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Posties"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PostieNumber" type="Panel" parent="VBoxContainer/HSplitContainer2/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_vbqs0")
+
+[node name="Contents" type="RichTextLabel" parent="VBoxContainer/HSplitContainer2/HSplitContainer/PostieNumber"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -23.0
+offset_right = 24.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "0
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="VBoxContainer/HSplitContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_ii2b7")
+theme_override_constants/separation = 0
+dragging_enabled = false
+drag_area_highlight_in_editor = true
+
+[node name="Sell" type="Button" parent="VBoxContainer/HSplitContainer2/HSplitContainer2"]
+custom_minimum_size = Vector2(19.6, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_4eo7i")
+theme_override_colors/font_color = Color(1, 0.0333334, 0, 1)
+text = "-"
+
+[node name="Buy" type="Button" parent="VBoxContainer/HSplitContainer2/HSplitContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("6_4eo7i")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="OnDutyMenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("7_qxnlq")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.641934, 0.641934, 0.641934, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = ExtResource("1_bb06l")
+theme_override_styles/pressed = ExtResource("3_foo5d")
+theme_override_styles/normal = ExtResource("2_lwt58")
+
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/OnDutyMenuBar"]
+auto_translate_mode = 1
+title = "On Duty Posties"
+unresizable = false
+content_scale_size = Vector2i(15, 0)
+theme = ExtResource("8_2736h")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+allow_search = false
+item_count = 3
+item_0/text = "Postie 1"
+item_0/id = 0
+item_1/text = "Postie 2"
+item_1/id = 1
+item_2/text = "Postie 3"
+item_2/id = 2
+
+[node name="InactiveMenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("7_qxnlq")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.641934, 0.641934, 0.641934, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = ExtResource("1_bb06l")
+theme_override_styles/pressed = ExtResource("3_foo5d")
+theme_override_styles/normal = ExtResource("2_lwt58")
+
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/InactiveMenuBar"]
+auto_translate_mode = 1
+title = "Inactive Posties"
+unresizable = false
+content_scale_size = Vector2i(15, 0)
+theme = ExtResource("8_2736h")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+allow_search = false
+item_count = 3
+item_0/text = "Postie 1"
+item_0/id = 0
+item_1/text = "Postie 2"
+item_1/id = 1
+item_2/text = "Postie 3"
+item_2/id = 2
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 0
+offset_left = 264.0
+offset_top = -12.0
+offset_right = 298.0
+offset_bottom = 23.0
+focus_mode = 0
+theme = ExtResource("8_2736h")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "X"

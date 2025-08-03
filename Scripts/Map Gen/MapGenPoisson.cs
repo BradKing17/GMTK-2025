@@ -48,7 +48,7 @@ public partial class MapGenPoisson : Node2D
             { "PostBox", postBox },
             { "ParkBench", parkBench },
             { "WaterFountain", waterFountain },
-            { "PostOffice", postOffice },
+            // { "PostOffice", postOffice },
             { "PostDepot", postDepot },
             { "GranniesHouse", granniesHouse }
         };

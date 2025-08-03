@@ -5,7 +5,7 @@ using Godot;
 
 public partial class Postie : Node2D
 {
-    public List<Points> loop = new List<Points>();
+    public List<Points> loop;
     public class Vehicle
     {
         // get enum name by toString() after entry;
@@ -203,10 +203,12 @@ public partial class Postie : Node2D
     public Status status = new();    
     private PackedScene PackedStatusScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/StatusScreen.tscn");
     public PostieStatus StatusScreen;
+    private ColorRect debugIcon;
 
     [Export] CanvasLayer debugcanvaslayer;
     public override void _Ready()
-    {
+    { 
+        
         name = Name = Utitily.RandomName.returnJsonNames("res://Scripts/Main/Jsons/PostieNames.json", ["Forenames", "Surnames"]);
         area = new Area2D();
         collider = new CollisionShape2D();
@@ -282,7 +284,14 @@ public partial class Postie : Node2D
             PathFollow2D newPathfollow = new PathFollow2D();
             newPath.AddChild(newPathfollow);
             newPathfollow.Loop = true;
-            newPathfollow.AddChild(new ColorRect());
+            debugIcon = new ColorRect()
+            {
+                Size = new Vector2(20, 20),
+                Position = new Vector2(-10, -10),
+                MouseFilter = Control.MouseFilterEnum.Ignore,
+                Color = Colors.Pink // debugpink
+            };
+            newPathfollow.AddChild(debugIcon);
 
         }
         base._Process(delta);

@@ -10,9 +10,8 @@ public partial class DepotManager : Node2D
 
     private Postie selectedPostie = null;
 
-    [Export]
-    private PointManager pointManager = null;
-    private Script pointManagerScript = null;
+    //[Export]
+    //public PointManager pointManager;
 
     public Points highlightedPoint = null;
 
@@ -20,12 +19,10 @@ public partial class DepotManager : Node2D
 
     public override void _Ready()
     {
-        pointManagerScript = (Script)pointManager.GetScript();
-        GD.Print(pointManagerScript);
+       // pointManager.depotManager = this;
     }
     public void StartLoop(List<Points> newLoop)
     {
         selectedPostie.loop = newLoop;
     }
-
 }

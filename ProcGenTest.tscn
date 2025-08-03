@@ -42,5 +42,11 @@ script = ExtResource("1_tdi54")
 script = ExtResource("4_ettu3")
 canvasLayer = NodePath("../../CanvasLayer")
 
+[node name="Button" type="Button" parent="DepoManager/Postie"]
+offset_right = 11.0
+offset_bottom = 10.0
+
+[node name="Area2D" type="Area2D" parent="DepoManager/Postie"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("7_x0gys")

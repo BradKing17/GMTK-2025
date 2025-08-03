@@ -18,7 +18,7 @@ public partial class DepotManager : Node2D
     }
     public void StartLoop(List<Points> newLoop)
     {
-        // selectedPostie.loop = newLoop;
+        // selectedPostie.loop = newLoop; COMMENTED BECAUSE IDK HOW TO INTEGRATE THIS
         // selectedPostie.AssignedLoop();
     }
 

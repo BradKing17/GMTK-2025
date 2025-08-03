@@ -9,6 +9,7 @@ public partial class Globals : Node
     [Export] public PointManager pointManager;
     [Export] public Canvas canvasLayer;
     public List<Postie> totalPosties = new();
+    [Export] public Postie selectedPostie = null;
 
     [Export] public Node2D MapLayer;
 }

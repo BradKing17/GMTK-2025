@@ -18,12 +18,70 @@ public partial class RevealationManager : Node
         allLines = lines;
         visiblePoints = new List<Points>();
         
+        // Cull isolated nodes with only one connection before starting reveals
+        CullIsolatedNodes();
+        
         SetupTimer();
         
         // Add lines to scene tree
         foreach (var line in allLines)
         {
             GetParent().AddChild(line);
+        }
+    }
+
+    private void CullIsolatedNodes()
+    {
+        bool nodesCulled;
+        
+        // Keep culling until no more isolated nodes are found
+        do
+        {
+            nodesCulled = false;
+            var isolatedNodes = allPoints.Where(p => p.GetNeighbours().Count <= 1).ToList();
+            
+            foreach (var isolatedNode in isolatedNodes)
+            {
+                // Remove this node from all its neighbors' neighbor lists
+                foreach (var neighbor in isolatedNode.GetNeighbours().ToList())
+                {
+                    neighbor.RemoveNeighbour(isolatedNode);
+                }
+                
+                // Remove associated lines
+                RemoveLinesConnectedToNode(isolatedNode);
+                
+                // Remove from points list
+                allPoints.Remove(isolatedNode);
+                
+                // Queue for deletion from scene tree
+                if (isolatedNode.GetParent() != null)
+                {
+                    isolatedNode.QueueFree();
+                }
+                
+                nodesCulled = true;
+            }
+            
+        } while (nodesCulled); // Continue until no more nodes are culled
+        
+        GD.Print($"Culling complete. Remaining nodes: {allPoints.Count}");
+    }
+
+    private void RemoveLinesConnectedToNode(Points nodeToRemove)
+    {
+        var linesToRemove = allLines.Where(line => 
+            LineConnectsToNode(line, nodeToRemove)).ToList();
+        
+        foreach (var line in linesToRemove)
+        {
+            allLines.Remove(line);
+            
+            // Queue for deletion from scene tree if already added
+            if (line.GetParent() != null)
+            {
+                line.QueueFree();
+            }
         }
     }
     

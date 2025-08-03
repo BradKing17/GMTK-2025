@@ -25,7 +25,7 @@ public partial class MapGenPoisson : Node2D
 
     // Revelation Settings
     [Export] private int initialNodesCount = 4;
-    [Export] private float delayBetweenNodes = 10.0f;
+    [Export] private float delayBetweenNodes = 0.1f;
 
     // Refactored components
     private PointFactory pointFactory;

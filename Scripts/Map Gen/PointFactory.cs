@@ -7,18 +7,23 @@ using System.Collections.Generic;
 public class PointFactory
 {
     private readonly PointManager pointManager;
-    private readonly PointTypeWeights weights;
+    private PointTypeWeightsConfig weights;
     
     public PointFactory(PointManager pointManager)
     {
         this.pointManager = pointManager;
-        this.weights = new PointTypeWeights();
+        this.weights = new PointTypeWeightsConfig(); // Default weights
+    }
+
+    public void SetWeights(PointTypeWeightsConfig customWeights)
+    {
+        this.weights = customWeights;
     }
     
     public List<Points> CreateAllPoints(Vector2[] positions, Vector2 scale)
     {
         var allPoints = new List<Points>();
-        var weightedTypes = weights.GetWeightedTypeList();
+        var weightedTypes = GetWeightedTypeList();
         
         for (int i = 0; i < positions.Length; i++)
         {
@@ -60,36 +65,29 @@ public class PointFactory
     private void ConfigurePoint(Points point, Vector2 position, Vector2 scale)
     {
         point.Name = Utitily.RandomName.returnJsonNames(
-            "res://Scripts/Map Gen/Names/List.json", 
-            ["Prefixes", "Suffixes"]);
+            MapGenConstants.FilePaths.NAMES_JSON, 
+            MapGenConstants.JsonKeys.NAME_CATEGORIES);
         point.SetPosition(position);
         point.Position = point.GetPosition();
         point.Scale = scale;
         point.manager = pointManager;
         point.Visible = false;
     }
-}
 
-/// <summary>
-/// Manages point type weights and selection
-/// </summary>
-public class PointTypeWeights
-{
-    private readonly Dictionary<string, float> weights = new()
-    {
-        { "House", 40.0f },
-        { "PostBox", 15.0f },
-        { "ParkBench", 12.0f },
-        { "WaterFountain", 10.0f },
-        { "PostDepot", 5.0f },
-        { "GranniesHouse", 2.0f }
-    };
-    
-    public List<string> GetWeightedTypeList()
+    private List<string> GetWeightedTypeList()
     {
         var weightedTypes = new List<string>();
+        var weightDict = new Dictionary<string, float>
+        {
+            { "House", weights.House },
+            { "PostBox", weights.PostBox },
+            { "ParkBench", weights.ParkBench },
+            { "WaterFountain", weights.WaterFountain },
+            { "PostDepot", weights.PostDepot },
+            { "GranniesHouse", weights.GranniesHouse }
+        };
         
-        foreach (var kvp in weights)
+        foreach (var kvp in weightDict)
         {
             int weight = Mathf.RoundToInt(kvp.Value);
             for (int i = 0; i < weight; i++)

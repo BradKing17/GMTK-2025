@@ -31,8 +31,10 @@ script = ExtResource("3_i8b30")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DepoManager" type="Node2D" parent="."]
+[node name="DepoManager" type="Node2D" parent="." node_paths=PackedStringArray("selectedPostie")]
 script = ExtResource("1_tdi54")
+selectedPostie = NodePath("Postie")
 
-[node name="Postie" type="Node2D" parent="DepoManager"]
+[node name="Postie" type="Node2D" parent="DepoManager" node_paths=PackedStringArray("canvasLayer")]
 script = ExtResource("4_ettu3")
+canvasLayer = NodePath("../../CanvasLayer")

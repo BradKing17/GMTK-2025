@@ -9,7 +9,7 @@ public partial class DepotManager : Node2D
     private int NumOfWagons = 0;
     private int NumOfVans = 0;
 
-    private Postie selectedPostie = null;
+    [Export] public Postie selectedPostie = null;
 
     public Points highlightedPoint = null;
 
@@ -22,5 +22,6 @@ public partial class DepotManager : Node2D
     public void StartLoop(List<Points> newLoop)
     {
         selectedPostie.loop = newLoop;
+        selectedPostie.AssignedLoop();
     }
 }

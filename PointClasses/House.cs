@@ -13,6 +13,7 @@ public partial class House : Points
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Green;
+        SetSprite("res://Assets/Images/MapSprites/House.png");
 
         timerLabel = new Label()
         {

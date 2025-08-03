@@ -203,10 +203,12 @@ public partial class Postie : Node2D
     public Status status = new();    
     private PackedScene PackedStatusScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/StatusScreen.tscn");
     public PostieStatus StatusScreen;
-
-    [Export] CanvasLayer debugcanvaslayer;
+    [Export] CanvasLayer canvasLayer;
+    public Globals globals;
     public override void _Ready()
     {
+        globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
+        canvasLayer = globals.canvasLayer;
         name = Name = Utitily.RandomName.returnJsonNames("res://Scripts/Main/Jsons/PostieNames.json", ["Forenames", "Surnames"]);
         area = new Area2D();
         collider = new CollisionShape2D();
@@ -266,7 +268,7 @@ public partial class Postie : Node2D
         StatusScreen.StatusLabel.Text = status.feeling.ToString();
         StatusScreen.VehicleOptionsButton.Selected = (int)vehicle.transport;
         StatusScreen.FatigueLabel.Text = status.fatiguePercentage.ToString();
-        debugcanvaslayer.AddChild(StatusScreen);
+        canvasLayer.AddChild(StatusScreen);
     }
 
     public override void _Process(double delta)

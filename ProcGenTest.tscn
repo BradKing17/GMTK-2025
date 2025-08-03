@@ -23,8 +23,9 @@ script = ExtResource("1_00hob")
 mapShape = NodePath("Polygon2D")
 poisson_radius = 30.0
 
-[node name="PointManager" type="Node" parent="Map"]
+[node name="PointManager" type="Node" parent="Map" node_paths=PackedStringArray("depotManager")]
 script = ExtResource("2_00hob")
+depotManager = NodePath("../..")
 
 [node name="Polygon2D" type="Polygon2D" parent="Map"]
 color = Color(0, 0, 0, 1)

@@ -5,7 +5,7 @@ using Godot;
 
 public partial class Postie : Node2D
 {
-
+    public List<Points> loop = new List<Points>();
     public class Vehicle
     {
         // get enum name by toString() after entry;
@@ -267,5 +267,24 @@ public partial class Postie : Node2D
         StatusScreen.VehicleOptionsButton.Selected = (int)vehicle.transport;
         StatusScreen.FatigueLabel.Text = status.fatiguePercentage.ToString();
         debugcanvaslayer.AddChild(StatusScreen);
+    }
+
+    public override void _Process(double delta)
+    {
+        if(loop != null)
+        {
+            Path2D newPath = new Path2D();
+            foreach (Points point in loop)
+            {
+                newPath.Curve.AddPoint(point.GetPosition());
+            }
+
+            PathFollow2D newPathfollow = new PathFollow2D();
+            newPath.AddChild(newPathfollow);
+            newPathfollow.Loop = true;
+            newPathfollow.AddChild(new ColorRect());
+
+        }
+        base._Process(delta);
     }
 }

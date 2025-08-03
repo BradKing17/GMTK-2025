@@ -5,7 +5,7 @@ using Godot;
 
 public partial class Postie : Node2D
 {
-    public List<Points> loop;
+    public List<Points> loop = new List<Points>();
     public class Vehicle
     {
         // get enum name by toString() after entry;
@@ -203,12 +203,12 @@ public partial class Postie : Node2D
     public Status status = new();    
     private PackedScene PackedStatusScreen = GD.Load<PackedScene>("res://Assets/Objects/UI/StatusScreen.tscn");
     public PostieStatus StatusScreen;
-    private ColorRect debugIcon;
-
-    [Export] CanvasLayer debugcanvaslayer;
+    [Export] CanvasLayer canvasLayer;
+    public Globals globals;
     public override void _Ready()
-    { 
-        
+    {
+        globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
+        canvasLayer = globals.canvasLayer;
         name = Name = Utitily.RandomName.returnJsonNames("res://Scripts/Main/Jsons/PostieNames.json", ["Forenames", "Surnames"]);
         area = new Area2D();
         collider = new CollisionShape2D();
@@ -268,7 +268,7 @@ public partial class Postie : Node2D
         StatusScreen.StatusLabel.Text = status.feeling.ToString();
         StatusScreen.VehicleOptionsButton.Selected = (int)vehicle.transport;
         StatusScreen.FatigueLabel.Text = status.fatiguePercentage.ToString();
-        debugcanvaslayer.AddChild(StatusScreen);
+        canvasLayer.AddChild(StatusScreen);
     }
 
     public override void _Process(double delta)
@@ -284,14 +284,7 @@ public partial class Postie : Node2D
             PathFollow2D newPathfollow = new PathFollow2D();
             newPath.AddChild(newPathfollow);
             newPathfollow.Loop = true;
-            debugIcon = new ColorRect()
-            {
-                Size = new Vector2(20, 20),
-                Position = new Vector2(-10, -10),
-                MouseFilter = Control.MouseFilterEnum.Ignore,
-                Color = Colors.Pink // debugpink
-            };
-            newPathfollow.AddChild(debugIcon);
+            newPathfollow.AddChild(new ColorRect());
 
         }
         base._Process(delta);

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://bombnuhy3ttvc"]
+
+[ext_resource type="Script" uid="uid://dtxv1w44etrs4" path="res://MainMenu.cs" id="1_i26rj"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("playButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i26rj")
+playButton = NodePath("PlayButton")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 431.0
+offset_top = 174.0
+offset_right = 763.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 50
+text = "POSTIE PANIC"
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 463.0
+offset_top = 283.0
+offset_right = 735.0
+offset_bottom = 345.0
+theme_override_font_sizes/font_size = 40
+text = "Play
+"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 352.0
+offset_right = 734.0
+offset_bottom = 414.0
+theme_override_font_sizes/font_size = 40
+text = "Quit"

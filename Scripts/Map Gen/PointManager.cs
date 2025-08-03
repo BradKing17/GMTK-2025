@@ -4,7 +4,7 @@ using System.Drawing;
 
 public partial class PointManager : Node
 {
-    [Export] DepotManager depotManager = null;
+    [Export] public DepotManager depotManager;
     private List<Points> points = [];
     private Timer gameOverTimer;
     private float gameOverTimeLeft = 60f;
@@ -122,7 +122,7 @@ public partial class PointManager : Node
 
     public void EndLoop(List<Points> newLoop)
     {
-        GD.Print("LOOP DRAWN");
+        GD.Print(depotManager);
         depotManager.StartLoop(newLoop);
     }
     public override void _Process(double delta)

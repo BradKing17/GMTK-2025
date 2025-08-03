@@ -25,3 +25,7 @@ texture = SubResource("PlaceholderTexture2D_0u6wy")
 [node name="debug" type="Node" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="debug"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class Points : Node2D
 {
+    protected Globals globals;
+
     public int GetNumConnections() { return numOfConnections; }
     public int postWaitingForDelivery = 0;
     public bool maxPostReached = false;
@@ -27,6 +29,7 @@ public partial class Points : Node2D
     protected Sprite2D sprite;
     public override void _Ready()
     {
+        globals = GetNode<Globals>(GetTree().Root.GetChild(0).GetPath());
         neighbourPoints = new List<Points>();
         area = new Area2D();
         collider = new CollisionShape2D();
@@ -61,6 +64,8 @@ public partial class Points : Node2D
 
     protected virtual void HandleMouseEntered()
     {
+        if (globals.objToClick != null) { return; }
+        globals.objToClick = this;
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(collider.Shape, "radius", radius + 20, 0.25f)
 				.SetTrans(Tween.TransitionType.Back)
@@ -69,7 +74,7 @@ public partial class Points : Node2D
     }
     protected virtual void HandleMouseExited()
     {
-
+        globals.objToClick = null;
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(collider.Shape, "radius", radius, 0.25f)
 					.SetTrans(Tween.TransitionType.Back)

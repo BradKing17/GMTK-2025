@@ -9,15 +9,31 @@ public partial class House : Points
 
     private Timer postTimer;
     private Label timerLabel;
-
-    public void InitializeTimer(Node parent, Label label)
+    public override void _Ready()
     {
-        timerLabel = label;
+        base._Ready();
+        mainColor = debugIcon.Color = Colors.Green;
+
+        timerLabel = new Label()
+        {
+            Text = "0",
+            Position = new Vector2(0, -60),
+            LabelSettings = new LabelSettings()
+            {
+                FontSize = 40,
+            }
+        };
+        AddChild(timerLabel);
+        InitializeTimer();
+    }
+    public void InitializeTimer()
+    {
         postTimer = new Timer();
         postTimer.WaitTime = 1.0f;
         postTimer.OneShot = false;
         postTimer.Timeout += OnPostTimerTimeout;
-        parent.AddChild(postTimer);
+        
+        AddChild(postTimer);
         postTimer.Start();
         UpdateLabel();
     }

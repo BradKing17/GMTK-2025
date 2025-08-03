@@ -6,5 +6,6 @@ public partial class ParkBench : Points
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Brown;
+        SetSprite("res://Assets/Images/MapSprites/bench.png");
     }
 }

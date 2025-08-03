@@ -14,10 +14,10 @@ script = ExtResource("3_i8b30")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DepoManager" type="Node2D" parent="."]
+[node name="DepotManager" type="Node2D" parent="."]
 script = ExtResource("1_tdi54")
 
-[node name="Postie" type="Node2D" parent="DepoManager"]
+[node name="Postie" type="Node2D" parent="DepotManager"]
 script = ExtResource("4_ettu3")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mapShape")]
@@ -27,7 +27,7 @@ poisson_radius = 30.0
 
 [node name="PointManager" type="Node" parent="Map" node_paths=PackedStringArray("depotManager")]
 script = ExtResource("2_00hob")
-depotManager = NodePath("../../DepoManager")
+depotManager = NodePath("../../DepotManager")
 
 [node name="Polygon2D" type="Polygon2D" parent="Map"]
 color = Color(0, 0, 0, 1)

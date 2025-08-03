@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://oxq0gr5juhfg"]
+
+[ext_resource type="Script" uid="uid://cu1oe3t5d206j" path="res://Scripts/Main/Postie.cs" id="1_qaiew"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0u6wy"]
+
+[node name="Postie" type="Node2D" node_paths=PackedStringArray("debugcanvaslayer")]
+script = ExtResource("1_qaiew")
+debugcanvaslayer = NodePath("debug/CanvasLayer")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_0u6wy")
+
+[node name="debug" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="debug"]

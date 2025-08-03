@@ -9,7 +9,7 @@ public partial class Camera : Camera2D
     {
         ogCamPos = this.GlobalPosition;
     }
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
         base._Input(@event);
         var x = Mathf.Clamp(Zoom.X, 1, 30);

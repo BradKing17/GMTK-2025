@@ -7,9 +7,8 @@
 [ext_resource type="Script" uid="uid://cu1oe3t5d206j" path="res://Scripts/Main/Postie.cs" id="4_ettu3"]
 [ext_resource type="PackedScene" uid="uid://dm467cdfjiame" path="res://Assets/Objects/UI/StatusScreen.tscn" id="4_raj4r"]
 
-[node name="Root" type="Node2D" node_paths=PackedStringArray("pointManager")]
+[node name="Root" type="Node2D"]
 script = ExtResource("1_tdi54")
-pointManager = NodePath("Map/PointManager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

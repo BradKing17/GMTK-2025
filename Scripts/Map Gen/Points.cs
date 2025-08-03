@@ -13,6 +13,7 @@ public partial class Points : Node2D
     public Color mainColor = new Color(1f, 1f, 1f);
     public bool isSelected = false;
 
+
     private Tween tween;
     private Vector2 position;
     private int numOfConnections;

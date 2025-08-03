@@ -4,6 +4,7 @@ using System.Drawing;
 
 public partial class PointManager : Node
 {
+    [Export] DepotManager depotManager = null;
     private List<Points> points = [];
     private Timer gameOverTimer;
     private float gameOverTimeLeft = 60f;
@@ -89,8 +90,18 @@ public partial class PointManager : Node
                     selectedPoint = highlightedPoint;
 
                 }
-                selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
-                currentRoute.Add(selectedPoint);
+
+                if (currentRoute.Contains(highlightedPoint))
+                {
+                    GD.Print("Loop complete");
+                    EndLoop(currentRoute);
+                }
+                else
+                {
+                    selectedPoint.GetChildOrNull<ColorRect>(1).Color = new Godot.Color(1f, 1f, 1f);
+                    currentRoute.Add(selectedPoint);
+                    GD.Print("Added" + selectedPoint);
+                }
             }
             else
             {
@@ -107,6 +118,12 @@ public partial class PointManager : Node
             
 
         }
+    }
+
+    public void EndLoop(List<Points> newLoop)
+    {
+        GD.Print("LOOP DRAWN");
+        depotManager.StartLoop(newLoop);
     }
     public override void _Process(double delta)
     {

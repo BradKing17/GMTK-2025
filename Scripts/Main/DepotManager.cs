@@ -16,14 +16,16 @@ public partial class DepotManager : Node2D
 
     public Points highlightedPoint = null;
 
+
+
     public override void _Ready()
     {
         pointManagerScript = (Script)pointManager.GetScript();
         GD.Print(pointManagerScript);
     }
-    void StartLoop(Points startPoint)
+    public void StartLoop(List<Points> newLoop)
     {
-
+        selectedPostie.loop = newLoop;
     }
 
 }

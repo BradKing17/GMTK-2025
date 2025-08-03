@@ -1,26 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://dolu40oh80kva"]
+[gd_scene load_steps=12 format=3 uid="uid://dolu40oh80kva"]
 
 [ext_resource type="StyleBox" uid="uid://bhjt64ejqtqhb" path="res://Assets/Themes/UI/Title.tres" id="1_l4w8u"]
 [ext_resource type="StyleBox" uid="uid://c3rrixp18kv2m" path="res://Assets/Themes/UI/Display.tres" id="2_0x7yq"]
-[ext_resource type="StyleBox" uid="uid://yqohjglm01sm" path="res://Assets/Objects/UI/BuildingScreen.tres" id="3_2q4we"]
 [ext_resource type="Theme" uid="uid://b0jsdx3qi35st" path="res://Assets/Themes/UI/DepotButtons.tres" id="5_2q4we"]
+[ext_resource type="Theme" uid="uid://1qjc2txjpmb1" path="res://Assets/Objects/UI/DepoActivePostiesDropdown.tres" id="5_ii2b7"]
+[ext_resource type="StyleBox" uid="uid://b5hac73qlrym2" path="res://Assets/Objects/UI/PostieButtonNormal.tres" id="5_kwy53"]
+[ext_resource type="Theme" uid="uid://oi21iduuwlt3" path="res://Assets/Themes/UI/PostieButtons.tres" id="6_2q4we"]
+[ext_resource type="StyleBox" uid="uid://b2mwn55nsl377" path="res://Assets/Objects/UI/postieButtonHover.tres" id="6_ii2b7"]
+[ext_resource type="StyleBox" uid="uid://181datjkj6tx" path="res://Assets/Objects/UI/PostieButtonPressed.tres" id="6_t5t8l"]
+
+[sub_resource type="Theme" id="Theme_t5t8l"]
+Button/styles/hover = ExtResource("6_ii2b7")
+Button/styles/normal = ExtResource("5_kwy53")
+Button/styles/pressed = ExtResource("6_t5t8l")
 
 [sub_resource type="Theme" id="Theme_ibmjd"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0x7yq"]
-bg_color = Color(0.854474, 0.959883, 1, 1)
-skew = Vector2(-0.075, 0)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.854883, 0, 0.222815, 1)
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_detail = 2
-shadow_size = 1
-shadow_offset = Vector2(3.5, 1.745)
-anti_aliasing = false
 
 [sub_resource type="Theme" id="Theme_ii2b7"]
 
@@ -40,7 +34,17 @@ layout_mode = 1
 offset_right = 285.0
 offset_bottom = 484.0
 
+[node name="NameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_t5t8l")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+action_mode = 0
+text = "Depot"
+
 [node name="StatusTitle" type="Panel" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(90, 45)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -77,54 +81,6 @@ theme_override_styles/panel = ExtResource("2_0x7yq")
 [node name="Node2D" type="Node2D" parent="VBoxContainer/PanelContainer"]
 visible = false
 position = Vector2(96, 96)
-
-[node name="Status2" type="VSeparator" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Title" type="Panel" parent="VBoxContainer/Status2"]
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-offset_right = 90.0
-offset_bottom = 45.0
-theme_override_styles/panel = ExtResource("3_2q4we")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Status2/Title"]
-layout_mode = 2
-offset_right = 89.81
-offset_bottom = 41.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Status"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel2" type="Panel" parent="VBoxContainer/Status2"]
-custom_minimum_size = Vector2(106.12, 45)
-layout_mode = 2
-offset_left = 84.0
-offset_right = 182.5
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0x7yq")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Status2/Panel2"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 2.0
-offset_right = 98.81
-offset_bottom = 43.16
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fatal
-"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -200,15 +156,6 @@ theme = SubResource("Theme_ii2b7")
 theme_override_constants/separation = 0
 drag_area_highlight_in_editor = true
 
-[node name="Buy" type="Button" parent="VBoxContainer/HSplitContainer2/HSplitContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme = ExtResource("5_2q4we")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-text = "+"
-
 [node name="Sell" type="Button" parent="VBoxContainer/HSplitContainer2/HSplitContainer2"]
 custom_minimum_size = Vector2(19.6, 0)
 layout_mode = 2
@@ -219,360 +166,84 @@ theme = ExtResource("5_2q4we")
 theme_override_colors/font_color = Color(1, 0.0333334, 0, 1)
 text = "-"
 
-[node name="On Duty Posties" type="HSplitContainer" parent="VBoxContainer"]
-layout_mode = 2
-split_offset = 70
-
-[node name="Active" type="Panel" parent="VBoxContainer/On Duty Posties"]
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("1_l4w8u")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/On Duty Posties/Active"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "On Duty"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Toggle" type="Button" parent="VBoxContainer/On Duty Posties"]
-custom_minimum_size = Vector2(19.6, 0)
+[node name="Buy" type="Button" parent="VBoxContainer/HSplitContainer2/HSplitContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("5_2q4we")
-theme_override_colors/font_color = Color(0.88773, 0, 0.402641, 1)
-text = "x"
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "+"
 
-[node name="On Duty List" type="VBoxContainer" parent="VBoxContainer"]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="LevelTitle" type="Panel" parent="VBoxContainer/On Duty List"]
-visible = false
-custom_minimum_size = Vector2(90, 45)
+[node name="OnDutyMenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_2q4we")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_ii2b7")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.641934, 0.641934, 0.641934, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = ExtResource("6_ii2b7")
+theme_override_styles/pressed = ExtResource("6_t5t8l")
+theme_override_styles/normal = ExtResource("5_kwy53")
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/On Duty List/LevelTitle"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "^"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/OnDutyMenuBar"]
+auto_translate_mode = 1
+title = "On Duty Posties"
+unresizable = false
+content_scale_size = Vector2i(15, 0)
+theme = ExtResource("6_2q4we")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+allow_search = false
+item_count = 3
+item_0/text = "Postie 1"
+item_0/id = 0
+item_1/text = "Postie 2"
+item_1/id = 1
+item_2/text = "Postie 3"
+item_2/id = 2
 
-[node name="Inactive Posties" type="HSplitContainer" parent="VBoxContainer"]
+[node name="InactiveMenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-split_offset = 70
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_ii2b7")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.641934, 0.641934, 0.641934, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = ExtResource("6_ii2b7")
+theme_override_styles/pressed = ExtResource("6_t5t8l")
+theme_override_styles/normal = ExtResource("5_kwy53")
 
-[node name="InActive" type="Panel" parent="VBoxContainer/Inactive Posties"]
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("1_l4w8u")
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/InactiveMenuBar"]
+auto_translate_mode = 1
+title = "Inactive Posties"
+unresizable = false
+content_scale_size = Vector2i(15, 0)
+theme = ExtResource("6_2q4we")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+allow_search = false
+item_count = 3
+item_0/text = "Postie 1"
+item_0/id = 0
+item_1/text = "Postie 2"
+item_1/id = 1
+item_2/text = "Postie 3"
+item_2/id = 2
 
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Inactive Posties/InActive"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Inactive"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Toggle" type="Button" parent="VBoxContainer/Inactive Posties"]
-custom_minimum_size = Vector2(19.6, 0)
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="Close" type="Button" parent="."]
+offset_left = 264.0
+offset_top = -12.0
+offset_right = 298.0
+offset_bottom = 23.0
 focus_mode = 0
-mouse_default_cursor_shape = 2
-theme = ExtResource("5_2q4we")
-theme_override_colors/font_color = Color(0.88773, 0, 0.402641, 1)
-text = "x"
-
-[node name="Inactive List" type="VBoxContainer" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="LevelTitle" type="Panel" parent="VBoxContainer/Inactive List"]
-visible = false
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_2q4we")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/Inactive List/LevelTitle"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "^"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = -6
-
-[node name="LevelContent" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(94.125, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0x7yq")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/LevelContent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "1"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StatusTitle" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_2q4we")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusTitle"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Status"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StatusContent" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(94.125, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0x7yq")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/StatusContent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fatal
-"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VehicleTitle" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_2q4we")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleTitle"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Vehicle"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VehicleContent" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0x7yq")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/VehicleContent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Van"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FatigueTitle" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(90, 45)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("3_2q4we")
-
-[node name="Contents" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueTitle"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.905
-offset_top = -20.58
-offset_right = 44.905
-offset_bottom = 20.58
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fatigue"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FatigueContent" type="Panel" parent="VBoxContainer/GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0x7yq")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/GridContainer/FatigueContent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -20.5
-offset_right = 41.04
-offset_bottom = 20.66
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Fine"
-fit_content = true
-scroll_active = false
-autowrap_mode = 1
-horizontal_alignment = 1
-vertical_alignment = 1
+theme = ExtResource("6_2q4we")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "X"

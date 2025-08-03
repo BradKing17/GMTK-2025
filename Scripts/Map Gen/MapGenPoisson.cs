@@ -159,6 +159,7 @@ public partial class MapGenPoisson : Node2D
       //      GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
+            newPoint.manager = pointManager;
         }
 
         return pointsFilled;

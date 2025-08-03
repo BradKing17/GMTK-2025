@@ -12,4 +12,6 @@ public partial class Globals : Node
     [Export] public Postie selectedPostie = null;
 
     [Export] public Node2D MapLayer;
+    [Export] public Node2D PointsLayer;
+
 }

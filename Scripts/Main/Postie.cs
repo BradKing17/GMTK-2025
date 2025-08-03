@@ -291,7 +291,7 @@ public partial class Postie : Node2D
     {
         GD.Print("ARray top SP: ", globals.selectedPostie);
         path = new Path2D();
-        AddChild(path);
+        globals.PointsLayer.AddChild(path);
         path.Curve = new Curve2D();
         foreach (Points point in loop)
         {
@@ -308,7 +308,7 @@ public partial class Postie : Node2D
         isLooping = true;
         pathFollow.Loop = true;
         pathFollow.AddChild(debugIcon);
-                GD.Print("ARray bot SP: ", globals.selectedPostie);
+        GD.Print("ARray bot SP: ", globals.selectedPostie);
     }
 
     public override void _Process(double delta)

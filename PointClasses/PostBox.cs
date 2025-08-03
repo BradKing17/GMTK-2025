@@ -7,7 +7,7 @@ public partial class PostBox : Points
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Red;
-        SetSprite("res://Assets/Images/MapSprites/PostBox.png");
+        SetSprite("res://Assets/Images/MapSprites/Postbox.png");
 
     }
 }

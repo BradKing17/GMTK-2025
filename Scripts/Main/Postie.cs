@@ -199,7 +199,6 @@ public partial class Postie : Node2D
     }
     [Export] public float clickableRadius = 20;
     private string name;
-
     private bool mouseInside = false;
     private Area2D area;
     private CollisionShape2D collider;

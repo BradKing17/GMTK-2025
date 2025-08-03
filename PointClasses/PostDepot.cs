@@ -7,5 +7,6 @@ public partial class PostDepot : Points
     {
         base._Ready();
         mainColor = debugIcon.Color = Colors.Orange;
+        SetSprite("res://Assets/Images/MapSprites/postDepot.png");
     }
 }

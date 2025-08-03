@@ -24,6 +24,7 @@ public partial class Points : Node2D
     private Area2D area;
     private CollisionShape2D collider;
     protected ColorRect debugIcon;
+    protected Sprite2D sprite;
     public override void _Ready()
     {
         neighbourPoints = new List<Points>();
@@ -48,6 +49,14 @@ public partial class Points : Node2D
             Color = Colors.Pink // debugpink
         };
         AddChild(debugIcon);
+        
+        // Initialize sprite (will be set by derived classes)
+        sprite = new Sprite2D()
+        {
+            Visible = false, 
+            ZIndex = 10 
+        };
+        AddChild(sprite);
     }
 
     private void HandleMouseEntered()
@@ -71,6 +80,17 @@ public partial class Points : Node2D
     public virtual void HitPoint(Postie postie)
     {
 
+    }
+    
+    protected void SetSprite(string spritePath)
+    {
+        var texture = GD.Load<Texture2D>(spritePath);
+        if (texture != null)
+        {
+            sprite.Texture = texture;
+            sprite.Visible = true;
+            debugIcon.Visible = false; // Hide debug icon when sprite is shown
+        }
     }
 
     public new Vector2 GetPosition() { return position; }

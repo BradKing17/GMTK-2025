@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public partial class DepotManager : Node2D
 {
     public Globals globals;
-    // public List<Postie> postieList = new List<Postie>();
     private int NumOfWagons = 0;
     private int NumOfVans = 0;
 
@@ -19,12 +18,16 @@ public partial class DepotManager : Node2D
     }
     public void StartLoop(List<Points> newLoop)
     {
-        selectedPostie.loop = newLoop;
-        selectedPostie.AssignedLoop();
+        // selectedPostie.loop = newLoop;
+        // selectedPostie.AssignedLoop();
     }
 
     public void BirthPostie()
     {
-        // dpeot
+        // Ask Brad if this layering is correct;
+        Postie postie = new();
+        globals.totalPosties.Add(postie);
+        globals.MapLayer.AddChild(postie);
+        postie.Position = globals.postOffice.Position;
     }
 }

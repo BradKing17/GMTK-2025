@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://croiudnto0de8"]
+[gd_scene load_steps=8 format=3 uid="uid://croiudnto0de8"]
 
 [ext_resource type="Script" uid="uid://feixikc5qxmk" path="res://Scripts/Map Gen/MapGenPoisson.cs" id="1_00hob"]
 [ext_resource type="Script" uid="uid://cgu2dnmqlonbg" path="res://Scripts/Main/DepotManager.cs" id="1_tdi54"]
@@ -6,12 +6,14 @@
 [ext_resource type="Script" path="res://Scripts/Map Gen/PointManager.cs" id="2_00hob"]
 [ext_resource type="Script" uid="uid://b5c0r81cmitiw" path="res://Scripts/Main/Camera.cs" id="3_i8b30"]
 [ext_resource type="Script" uid="uid://cu1oe3t5d206j" path="res://Scripts/Main/Postie.cs" id="4_ettu3"]
+[ext_resource type="Script" uid="uid://hkr23kgrswra" path="res://Scripts/UI/Canvas.cs" id="7_x0gys"]
 
-[node name="Root" type="Node2D" node_paths=PackedStringArray("depotManager", "pointManager", "canvasLayer")]
+[node name="Root" type="Node2D" node_paths=PackedStringArray("depotManager", "pointManager", "canvasLayer", "MapLayer")]
 script = ExtResource("1_x0gys")
 depotManager = NodePath("DepoManager")
 pointManager = NodePath("Map/PointManager")
 canvasLayer = NodePath("CanvasLayer")
+MapLayer = NodePath("Map")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mapShape")]
 script = ExtResource("1_00hob")
@@ -29,12 +31,13 @@ polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 4
 position = Vector2(576, 324)
 script = ExtResource("3_i8b30")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="DepoManager" type="Node2D" parent="." node_paths=PackedStringArray("selectedPostie")]
+[node name="DepoManager" type="Node2D" parent="."]
+position = Vector2(92, 44)
 script = ExtResource("1_tdi54")
-selectedPostie = NodePath("Postie")
 
 [node name="Postie" type="Node2D" parent="DepoManager" node_paths=PackedStringArray("canvasLayer")]
 script = ExtResource("4_ettu3")
 canvasLayer = NodePath("../../CanvasLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("7_x0gys")

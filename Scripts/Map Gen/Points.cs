@@ -22,7 +22,7 @@ public partial class Points : Node2D
     public void SetPointType(string type) { pointType = type; }
 
     private Area2D area;
-    private CollisionShape2D collider;
+    protected CollisionShape2D collider;
     protected ColorRect debugIcon;
     public override void _Ready()
     {
@@ -50,7 +50,7 @@ public partial class Points : Node2D
         AddChild(debugIcon);
     }
 
-    private void HandleMouseEntered()
+    protected virtual void HandleMouseEntered()
     {
         var tweener = GetTree().CreateTween();
         tweener.TweenProperty(collider.Shape, "radius", radius + 20, 0.25f)
@@ -58,7 +58,7 @@ public partial class Points : Node2D
 				.SetEase(Tween.EaseType.Out);
         manager.SetHighlightedPoint(this);
     }
-    private void HandleMouseExited()
+    protected virtual void HandleMouseExited()
     {
 
         var tweener = GetTree().CreateTween();

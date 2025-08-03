@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection;
 
 public partial class PostieStatus : Control
 {
@@ -21,6 +22,7 @@ public partial class PostieStatus : Control
         VehicleOptionsButton.ItemSelected += updateVehicle;
         closeButton.Pressed += closeWindow;
         NameLabel.ButtonDown += AttachWindow;
+        updateVehicle(VehicleOptionsButton.GetSelectedId());
     }
 
     private void updateVehicle(long index)

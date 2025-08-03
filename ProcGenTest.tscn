@@ -1,12 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://croiudnto0de8"]
+[gd_scene load_steps=7 format=3 uid="uid://croiudnto0de8"]
 
 [ext_resource type="Script" uid="uid://feixikc5qxmk" path="res://Scripts/Map Gen/MapGenPoisson.cs" id="1_00hob"]
 [ext_resource type="Script" uid="uid://cgu2dnmqlonbg" path="res://Scripts/Main/DepotManager.cs" id="1_tdi54"]
+[ext_resource type="Script" uid="uid://cl1h0702avbcv" path="res://Scripts/Main/Globals.cs" id="1_x0gys"]
 [ext_resource type="Script" path="res://Scripts/Map Gen/PointManager.cs" id="2_00hob"]
 [ext_resource type="Script" uid="uid://b5c0r81cmitiw" path="res://Scripts/Main/Camera.cs" id="3_i8b30"]
 [ext_resource type="Script" uid="uid://cu1oe3t5d206j" path="res://Scripts/Main/Postie.cs" id="4_ettu3"]
 
-[node name="Root" type="Node2D"]
+[node name="Root" type="Node2D" node_paths=PackedStringArray("depotManager", "pointManager", "canvasLayer")]
+script = ExtResource("1_x0gys")
+depotManager = NodePath("DepoManager")
+pointManager = NodePath("Map/PointManager")
+canvasLayer = NodePath("CanvasLayer")
+
+[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mapShape")]
+script = ExtResource("1_00hob")
+mapShape = NodePath("Polygon2D")
+poisson_radius = 30.0
+
+[node name="PointManager" type="Node" parent="Map"]
+script = ExtResource("2_00hob")
+
+[node name="Polygon2D" type="Polygon2D" parent="Map"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 406, 236, 500, 240, 570, 227, 634, 224, 768, 223, 823, 279, 862, 383, 823, 446, 697, 461, 597, 464, 502, 465, 421, 473, 348, 554, 241, 586, 171, 511, 147, 412, 235, 346)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
@@ -14,21 +31,9 @@ script = ExtResource("3_i8b30")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DepotManager" type="Node2D" parent="."]
+[node name="DepoManager" type="Node2D" parent="." node_paths=PackedStringArray("pointManager")]
 script = ExtResource("1_tdi54")
+pointManager = NodePath("../Map/PointManager")
 
-[node name="Postie" type="Node2D" parent="DepotManager"]
+[node name="Postie" type="Node2D" parent="DepoManager"]
 script = ExtResource("4_ettu3")
-
-[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("mapShape")]
-script = ExtResource("1_00hob")
-mapShape = NodePath("Polygon2D")
-poisson_radius = 30.0
-
-[node name="PointManager" type="Node" parent="Map" node_paths=PackedStringArray("depotManager")]
-script = ExtResource("2_00hob")
-depotManager = NodePath("../../DepotManager")
-
-[node name="Polygon2D" type="Polygon2D" parent="Map"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(160, 256, 187, 152, 251, 118, 316, 112, 359, 167, 406, 236, 500, 240, 570, 227, 634, 224, 768, 223, 823, 279, 862, 383, 823, 446, 697, 461, 597, 464, 502, 465, 421, 473, 348, 554, 241, 586, 171, 511, 147, 412, 235, 346)

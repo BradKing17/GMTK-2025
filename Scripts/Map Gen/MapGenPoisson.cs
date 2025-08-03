@@ -14,24 +14,22 @@ public partial class MapGenPoisson : Node2D
     [Export] private float pointRadius = 20;
 
     //Point Weighting Variables
-    [Export] private Single house = 40.0f; // Most common
-    [Export] private Single postBox = 15.0f; // Common
-    [Export] private Single parkBench = 12.0f; // Fairly common
-    [Export] private Single waterFountain = 10.0f; // Moderate
-    [Export] private Single postOffice = 8.0f; // Less common
-    [Export] private Single postDepot = 5.0f; // Rare
-    [Export] private Single granniesHouse = 2.0f; // Very rare
-
+    [Export] private float house = 40.0f; // Most common
+    [Export] private float postBox = 15.0f; // Common
+    [Export] private float parkBench = 12.0f; // Fairly common
+    [Export] private float waterFountain = 10.0f; // Moderate
+    [Export] private float postOffice = 8.0f; // Less common
+    [Export] private float postDepot = 5.0f; // Rare
+    [Export] private float granniesHouse = 2.0f; // Very rare
     private PackedScene PackedPoint = GD.Load<PackedScene>("res://Assets/Objects/Point.tscn");
-
     private PointManager pointManager;
     
-
     public override void _Ready()
     {
         pointManager = new PointManager();
         AddChild(pointManager);
         List<Points> points = new(GeneratePoints());
+
         GenerateStreets(points);
     }
 
@@ -40,10 +38,6 @@ public partial class MapGenPoisson : Node2D
         var poissonScript = GD.Load<GDScript>("res://addons/PoissonDiscSampling/poisson_disc_sampling.gd");
         var poissonScriptNode = (GodotObject)poissonScript.New();
         Vector2[] newVectors = (Vector2[])poissonScriptNode.Call("generate_points_for_polygon", mapShape.Polygon, poisson_radius, 10);
-
-        var json = new Json { Data = Json.ParseString(Godot.FileAccess.GetFileAsString("res://Scripts/Map Gen/Names/List.json")) };
-        Godot.Collections.Dictionary<string, string[]> nodeDict = new((Dictionary)json.Data);
-        RandomNumberGenerator nameRNG = new();
         
         List<Points> pointsFilled = new();
         
@@ -72,93 +66,29 @@ public partial class MapGenPoisson : Node2D
         bool isFirstPoint = true;
         foreach (var vector in newVectors)
         {
-            Points newPoint = PackedPoint.Instantiate<Points>();
-            newPoint.Name = Utitily.RandomName.returnDictNames(nodeDict, ["Prefixes", "Suffixes"]);
-           
-            AddChild(newPoint);
-
-            // Add visual representation for the point
-            var square = new ColorRect()
-            {
-                Size = new Vector2(20, 20),
-                Position = new Vector2(-10, -10),
-                MouseFilter = Control.MouseFilterEnum.Ignore
-            };
-            newPoint.AddChild(square);
-
-            // Ensure first point is always a PostOffice, then use weighted random selection
             string selectedType = isFirstPoint ? "PostOffice" : weightedPointTypes[GD.RandRange(0, weightedPointTypes.Count - 1)];
             isFirstPoint = false;
 
-            Color pointColor = selectedType switch
+            Points newPoint = selectedType switch // didnt realise you could write switches like this
             {
-                "House" => new Color(0, 1, 0), // Green
-                "GranniesHouse" => new Color(0, 0.5f, 1), // Light Blue
-                "PostOffice" => new Color(1, 1, 0), // Yellow
-                "ParkBench" => new Color(0.5f, 0.3f, 0), // Brown
-                "PostBox" => new Color(1, 0, 0), // Red
-                "PostDepot" => new Color(1, 0.5f, 0), // Orange
-                "WaterFountain" => new Color(0, 0, 1), // Blue
-                _ => new Color(1, 1, 1) // White default
+                "GranniesHouse" => new GranniesHouse(),
+                "PostOffice" => new PostOffice(),
+                "ParkBench" => new ParkBench(),
+                "PostBox" => new PostBox(),
+                "PostDepot" => new PostDepot(),
+                "WaterFountain" => new WaterFountain(),
+                _ => new House(),
             };
-            square.Color = pointColor;
-            newPoint.mainColor = pointColor;
 
+            // probably shouldnt be opening the json every time we make a new node but idc!!
+            newPoint.Name = Utitily.RandomName.returnJsonNames("res://Scripts/Map Gen/Names/List.json", ["Prefixes", "Suffixes"]); 
+            AddChild(newPoint);
             newPoint.SetPosition(vector);
-            newPoint.SetPointType(selectedType); 
-
-            switch (selectedType)
-            {
-                case "House":
-                    Label timerLabel = new()
-                    {
-                        Text = "0",
-                        Position = new Vector2(0, -60),
-                        LabelSettings = new LabelSettings()
-                        {
-                            FontSize = 40,
-
-                        }
-
-                    };
-                    newPoint.AddChild(timerLabel);
-
-                    House houseComponent = new House();
-                    newPoint.AddChild(houseComponent);
-                    houseComponent.InitializeTimer(this, timerLabel);
-                    break;
-
-                case "GranniesHouse":
-
-                    // Add GranniesHouse-specific behavior here
-                    break;
-
-                case "PostOffice":
-                    // Add PostOffice-specific behavior here
-                    break;
-
-                case "ParkBench":
-                    // Add ParkBench-specific behavior here
-                    break;
-
-                case "PostBox":
-                    // Add PostBox-specific behavior here
-                    break;
-
-                case "PostDepot":
-                    // Add PostDepot-specific behavior here
-                    break;
-
-                case "WaterFountain":
-                    // Add WaterFountain-specific behavior here
-                    break;
-            }
-
             pointsFilled.Add(newPoint);
             pointManager.RegisterPoint(newPoint); // Register the point with the PointManager
-      //      GD.Print($"Generated {selectedType} at {newPoint.GetPosition()}");
             newPoint.Position = newPoint.GetPosition();
             newPoint.Scale = pointScale;
+            newPoint.manager = pointManager;
         }
 
         return pointsFilled;
@@ -167,7 +97,8 @@ public partial class MapGenPoisson : Node2D
 
     void GenerateStreets(List<Points> pointsPassed)
     {
-        List<Points> deadEnds = new List<Points>();
+        List<Points> deadEnds = new();
+
         foreach (Points point in pointsPassed)
         {
             foreach (Points newConnection in pointsPassed)
@@ -213,6 +144,5 @@ public partial class MapGenPoisson : Node2D
                     AddChild(newLine);
              }
         }
-
     }
 }
